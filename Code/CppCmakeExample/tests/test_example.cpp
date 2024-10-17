@@ -9,7 +9,7 @@
 
 #include <catch2/catch.hpp>
 
-#include "../src/example_class.h"
+#include "../src/example_class.hpp"
 
 TEST_CASE("Factorials are computed", "[factorial]")
 {

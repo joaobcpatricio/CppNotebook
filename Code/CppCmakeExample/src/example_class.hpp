@@ -1,5 +1,5 @@
-#ifndef TEMPLATE_EXAMPLE_CLASS_H
-#define TEMPLATE_EXAMPLE_CLASS_H
+#ifndef TEMPLATE_EXAMPLE_CLASS_HPP
+#define TEMPLATE_EXAMPLE_CLASS_HPP
 
 #include <cstdint>
 
@@ -14,4 +14,4 @@ public:
 };
 
 
-#endif //TEMPLATE_EXAMPLE_CLASS_H
+#endif //TEMPLATE_EXAMPLE_CLASS_HPP

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "example_class.h"
+#include "example_class.hpp"
 #include "config.hpp"
 
 void ExampleClass::CounterAddOne() {

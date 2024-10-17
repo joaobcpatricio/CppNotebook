@@ -22,6 +22,8 @@ option(ENABLE_CLANG_TIDY "Enable to add clang tidy." ON)
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
+set(SRC_NAME example_class) #indicate variable names by upper case
+set(EXECUTABLE_NAME Executable)
 
 if (USE_CPM)
     message(STATUS "Using CPM")
@@ -42,6 +44,6 @@ endif ()
 add_subdirectory(configured)
 #add_subdirectory(external)
 add_subdirectory(src) #should be first as it is the library
-#add_subdirectory(app)
+add_subdirectory(app)
 add_subdirectory(tests)
 

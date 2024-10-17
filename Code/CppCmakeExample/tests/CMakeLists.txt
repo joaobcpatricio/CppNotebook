@@ -6,6 +6,6 @@ if (ENABLE_TESTING)
     add_executable(${TEST_MAIN} ${TEST_SOURCES})
     target_include_directories(${TEST_MAIN} PUBLIC ${TEST_INCLUDES}) #For files used under tests
     target_link_libraries(${TEST_MAIN} PUBLIC
-        example_class
+        ${SRC_NAME}
             Catch2::Catch2)
 endif ()
