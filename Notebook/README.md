@@ -33,7 +33,7 @@ Supported style tools by markdown and github:
 3. **Emoji Support**
 
     GitHub supports emojis natively using :emoji_name: syntax.
-    Example:
+    Example:<br>
     🚀 This is a rocket emoji
 
 4. **Footnotes**
@@ -43,7 +43,7 @@ Supported style tools by markdown and github:
 
     Here is a simple footnote[^1]. With some additional text after it.
 
-    [^1]: ../README.md
+    [^1]: google.com
 
 
 5. **Tables**
@@ -90,10 +90,6 @@ Supported style tools by markdown and github:
     1. 
         <br>The formula for the area of a circle is $A = \pi r^2$.
     
-    2.
-        $$
-        E = mc^2
-        $$
 
 
     
