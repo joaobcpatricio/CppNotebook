@@ -10,6 +10,7 @@ public:
     uint8_t GetCounter();
     void CounterAddOne();
     void Reset();
+    void PrintConfigured();
 };
 
 

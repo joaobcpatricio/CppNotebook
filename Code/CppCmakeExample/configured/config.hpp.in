@@ -1,0 +1,21 @@
+//*********************************************************************************************************************
+//*
+//*   Programmer    : patj
+//*   Date          : 2024-01-03 13:41:47 +0200 (Mi., 03 01 2024)
+//*
+//*********************************************************************************************************************
+
+#ifndef CPPPROJECTTEMPLATE_CONFIG_HPP
+#define CPPPROJECTTEMPLATE_CONFIG_HPP
+
+#include <cstdint>
+#include <string_view>
+
+static constexpr std::string_view project_name = "@PROJECT_NAME@"; //Tells the CMAKE to later one replace this text by the project name set on cmake
+static constexpr std::string_view project_version= "@PROJECT_VERSION@";
+
+static constexpr std::int32_t project_version_major{@PROJECT_VERSION_MAJOR@};
+static constexpr std::int32_t project_version_minor{@PROJECT_VERSION_MINOR@};
+static constexpr std::int32_t project_version_patch{@PROJECT_VERSION_PATCH@};
+
+#endif //CPPPROJECTTEMPLATE_CONFIG_HPP

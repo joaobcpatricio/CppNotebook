@@ -39,7 +39,7 @@ else ()
     FetchContent_MakeAvailable(Catch2)
 endif ()
 
-#add_subdirectory(configured)
+add_subdirectory(configured)
 #add_subdirectory(external)
 add_subdirectory(src) #should be first as it is the library
 #add_subdirectory(app)

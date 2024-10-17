@@ -1,6 +1,6 @@
 if (ENABLE_TESTING)
     set(TEST_MAIN "unit_tests")
-    set(TEST_SOURCES "main.cpp")
+    set(TEST_SOURCES "test_example.cpp")
     set(TEST_INCLUDES "./")
 
     add_executable(${TEST_MAIN} ${TEST_SOURCES})

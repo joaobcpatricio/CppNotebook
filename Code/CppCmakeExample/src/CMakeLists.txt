@@ -1,4 +1,11 @@
 # Add all sources here
-set(core_SRCS example_class.cpp example_class.h)
+set(LIBRARY_NAME example_class) #indicate variable names by upper case
 
-add_library(example_class STATIC ${core_SRCS})
+
+set(LIBRARY_SOURCES example_class.cpp)
+set(LIBRARY_HEADERS example_class.h)
+set(LIBRARY_INCLUDES "./" "${CMAKE_BINARY_DIR}/configured_files/include")
+
+add_library(${LIBRARY_NAME} STATIC ${LIBRARY_SOURCES} ${LIBRARY_HEADERS})
+target_include_directories(${LIBRARY_NAME} PUBLIC ${LIBRARY_INCLUDES})
+

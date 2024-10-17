@@ -14,12 +14,10 @@
 TEST_CASE("Factorials are computed", "[factorial]")
 {
         ExampleClass exampleClass;
-    REQUIRE(exampleClass.GetCounter()
-            == 0);
-    
-    exampleClass.CounterAddOne();
-    uint8_t value = exampleClass.GetCounter();
-    REQUIRE(value
-            == 1);
+        exampleClass.PrintConfigured();
+        REQUIRE(exampleClass.GetCounter() == 0);
 
+        exampleClass.CounterAddOne();
+        uint8_t value = exampleClass.GetCounter();
+        REQUIRE(value == 1);
 }

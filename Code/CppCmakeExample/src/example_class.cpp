@@ -1,4 +1,7 @@
+#include <iostream>
+
 #include "example_class.h"
+#include "config.hpp"
 
 void ExampleClass::CounterAddOne() {
     counter++;
@@ -10,4 +13,9 @@ uint8_t ExampleClass::GetCounter() {
 
 void ExampleClass::Reset() {
     counter = 0;
+}
+
+void ExampleClass::PrintConfigured() {
+     std::cout << project_name << "\n";
+    std::cout << project_version << "\n";
 }
