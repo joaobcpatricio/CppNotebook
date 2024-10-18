@@ -1,7 +1,14 @@
 # C++
 
 
-## Intro
+# Table of Contents
+- [Introduction](#introduction)
+- [Compiler](#compiler)
+- [Linker](#linker)
+- [Variables](#variables)
+
+
+## Introduction
 
 ```mermaid
     flowchart LR
@@ -54,3 +61,5 @@ There is static and dynamic linking. More of this in the future.
 
 
 ## Variables
+
+
