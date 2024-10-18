@@ -1,7 +1,7 @@
 # C++
 
 
-## C++
+## Intro
 
 ```mermaid
     flowchart LR
@@ -21,7 +21,7 @@
 * **/Definition** - this is what this function is/the body (is the actual logic code of the code).
 
 
-## C++ Compiler
+## Compiler
 
 ```mermaid
     flowchart LR
@@ -41,5 +41,16 @@
 * Optimization - We can also change compilation optimizations for speed, space, etc. This, for example, can simplify the machine instructions (e.g. instead of doing `5x2`, just places directly `10` in memory).
 
 
-# C++ Linker
+## Linker
 
+Finds where each symbol and function is and links them. Also checks for the entry point (main). So we can compile a file without a main, but get an error if build as an executable needs an entry point.
+
+* The linker only has to link actually used code
+* Declaring static means this method is only declared once on this translation unit.
+* Use static - then this is only on that file scope
+* Use inline - then it replaces this call by the content
+
+There is static and dynamic linking. More of this in the future.
+
+
+## Variables
