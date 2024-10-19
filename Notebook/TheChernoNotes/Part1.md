@@ -100,3 +100,11 @@ E.g., a bool takes 8 bits instead of 8 because due to memory it uses the minimum
 ## Functions
 
 Functions are blocks of code that we write to perform a specific task. If part of a class, it is called method.
+
+The functions should be manly for us to avoid code duplication.
+
+When a function is called (the compiler generates a call instruction), the entire **stack** frame for the function needs to be created, meaning things like parameters need to be pushed onto the **stack** and also the return address, so what happens is we jump to a different part of the binary and then we jump back.This jumping takes time. This is not the case for inline functions though (more on this later).
+
+
+# Header Files
+
