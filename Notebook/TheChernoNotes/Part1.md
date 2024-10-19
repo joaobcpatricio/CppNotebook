@@ -106,5 +106,19 @@ The functions should be manly for us to avoid code duplication.
 When a function is called (the compiler generates a call instruction), the entire **stack** frame for the function needs to be created, meaning things like parameters need to be pushed onto the **stack** and also the return address, so what happens is we jump to a different part of the binary and then we jump back.This jumping takes time. This is not the case for inline functions though (more on this later).
 
 
-# Header Files
+## Header Files
 
+By using the header files, we can have the functions (and other items) declared there and instead of copying this declarations everywhere, for example, we just need to include the header.
+
+We should use header guards, as `#pragma once` or `#ifndef _NAME_OF_HEADER_H`, to enforce that this file is only taken once in case of circular/repeated includes among several files.
+
+Includes using:
+* `<>` (angular brackets) - the compiler searches first for the header files included using this notation in the standard library directories (i.e., /usr/include). This notation tells the compiler that it should look for the file in the system's include directories, which contain standard headers and libraries installed on the system.
+* `""` (quotes) - the compiler searches first for the file in the current directory. If the file is not found in the current directory, it then searches in the standard library directories. This notation tells the compiler that it should look for the file in the current directory first, and if not found there, then search the system's include directories.
+ 
+In summary, using angle brackets (< >) is more specific to including files from the system's standard library, while using quotes ("") allows you to include files from the current directory as well as the system's standard library.
+
+From the standard libraries, files from C standard normally end with .h while standard C++ does not. E.g. `#include<stdio.h>` vs `#include<iostream>`.
+
+
+## Debug
