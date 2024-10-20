@@ -1,4 +1,5 @@
-# C++
+# **C++** 
+# Part 1
 
 
 #### [Table of Contents](README.md#table-of-contents)
@@ -122,3 +123,23 @@ From the standard libraries, files from C standard normally end with .h while st
 
 
 ## Debug
+
+Make sure you are in Debug mode. More specifics depend on the used tool, but normally you select a breaking point and the execution will stop into it, in case it passes this part.
+
+Under Debug mode the compiler does some extra things, like put "C" on uninitialized memory. This is to help debug and identify, in this case, we did not initialize this part. 
+Anyway, always test with Release exactly because of this differences, as might provoke different behaviors.
+
+
+## Conditions and Branches
+
+Used to evaluate conditions and based on that, branch a code to be executed, as in, depending on the evaluation, jump to a specific place in memory to execute that code. This, of course, can have some performance impact, compilers sometimes also optimize this to avoid having this performance hit.
+
+* `==`-> Equal operator.
+
+One way of improving the performance, is to evaluate the real need of using a condition instead of some mathematical calculation or other option.
+
+
+## Loops
+
+Namely, *for* and *while* loops.
+
