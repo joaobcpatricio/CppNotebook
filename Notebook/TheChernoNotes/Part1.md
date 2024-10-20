@@ -154,6 +154,34 @@ There is no rule on which to use, one can be that, if you use a variable that al
 
 Control flow statements work with loops.
 
-* *continue*: can only be used inside a loop and basically says go to the next iteration, if is the case.
-* *break*: it will end the loop. It is primarily used in loops but also in switch statements.
-* *return*: this will get out of the function entirely.
+* *continue*: This keyword is exclusively used inside looping structures, such as for or while, to skip the rest of the current iteration and move on to the next one. E.g. (output:1 3 5 7 9):
+    ``` 
+    for(int i = 0; i < 10; ++i) {
+        if(i % 2 == 0) {
+            continue; // Skips even numbers and continues with the next iteration (next odd number).
+        }
+        std::cout << i << "\n"; // Will only print odd numbers.
+    }
+    ```
+
+* *break*: This keyword is used to terminate a loop or switch statement prematurely, essentially jumping out of the enclosing block of code. It's commonly employed in loops but can also be found in switch statements.
+    ```
+    for(int i = 0; i < 10; ++i) {
+        if(i == 5) {
+            break; // Terminates the loop as soon as 'i' reaches 5.
+        }
+        std::cout << i << "\n"; // Will print numbers from 0 to 4.
+    }
+    ```
+* *return*: This keyword serves to exit a function entirely, thereby stopping its execution and returning control to the caller. It's particularly useful when you have reached a point in your code where it doesn't make sense to continue executing the rest of the function.
+    ```
+    int divide(int a, int b) {
+        if(b == 0) {
+            return 0; // Exits the function immediately and returns 0 when 'b' is 0.
+        }
+        return a / b; // Regular division operation when 'b' isn't 0.
+    }
+    ```
+    
+
+    ## Pointers

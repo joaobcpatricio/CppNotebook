@@ -9,3 +9,4 @@
 - [Conditions and Branches](Part1.md#conditions-and-branches)
 - [Loops](Part1.md#loops)
 - [Control Flow](Part1.md#control-flow)
+- [Pointers](Part1.md#pointers)
