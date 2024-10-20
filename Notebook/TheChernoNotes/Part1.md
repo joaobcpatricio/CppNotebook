@@ -143,3 +143,17 @@ One way of improving the performance, is to evaluate the real need of using a co
 
 Namely, *for* and *while* loops.
 
+* *for*: ```for(int i=0; i<5; i++) ``` - The first statement initializes, the variable that we use on the second part as a condition for the loop to run, and the third that performs the modification of this variable in the 2nd condition.
+* *while*: ```while(i<5)``` - Will loop while the condition is true.
+* *do while*: ```do while(condition)``` - Similar to while but it always run at least once.
+
+There is no rule on which to use, one can be that, if you use a variable that already exists, you can use *while* as it does not force the declaration or direct increment of a variable. *For* loops are also very used for ordered loops, like iterate through an array. 
+
+
+## Control Flow
+
+Control flow statements work with loops.
+
+* *continue*: can only be used inside a loop and basically says go to the next iteration, if is the case.
+* *break*: it will end the loop. It is primarily used in loops but also in switch statements.
+* *return*: this will get out of the function entirely.
