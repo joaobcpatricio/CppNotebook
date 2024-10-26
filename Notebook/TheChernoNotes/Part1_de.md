@@ -1,11 +1,11 @@
 # **C++** 
-# Part 1 DE
+# Part 1
 
 
-#### [Table of Contents](README.md#table-of-contents)
+#### [Inhaltsverzeichnis](README.md#table-of-contents)
 
 
-## Introduction
+## Introduktion
 
 ```mermaid
     flowchart LR
@@ -15,8 +15,9 @@
 
 <br>
 
-**Notes**
-* **Preprocessor Statements:** "#" - pre-processor statement, is the first thing a compiler processes when receiving a file. Then it compiles. In the case of **include** it literally copies the content of that header file and places on this file, as if was a single one for compilation purposes.
+**Notizen**
+* **Preprocessor Statements:** "#" - preprocessor/präpozessoranweisung, ist das erste, was ein Compiler beim Erhalten einer Datei berarneitet. Dann wird kompiliert. Im Fall von **include** kopiert es den Inhalt der Header-Datein und platziert sie in dieser Datei für die Kompilierung.
+* 
 * **Entry Point:** - "main" is the entry point for the application. does not have to return anything (default is 0). It is a special case, although we have it as ```int main(){}```.
 * "<<" are an overload operator. Operators are just functions: ```std::cout << "ola" << "hi"``` could just be ```std::cout.print("ola").print("hi")```.
 * ```std::cin.get();``` waits for user to press "Enter".
@@ -155,7 +156,7 @@ There is no rule on which to use, one can be that, if you use a variable that al
 Control flow statements work with loops.
 
 * *continue*: This keyword is exclusively used inside looping structures, such as for or while, to skip the rest of the current iteration and move on to the next one. E.g. (output:1 3 5 7 9):
-    ```cpp 
+    ```cpp
     for(int i = 0; i < 10; ++i) {
         if(i % 2 == 0) {
             continue; // Skips even numbers and continues with the next iteration (next odd number).
