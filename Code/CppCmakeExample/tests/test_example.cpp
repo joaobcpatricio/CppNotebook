@@ -21,3 +21,13 @@ TEST_CASE("Factorials are computed", "[factorial]")
         uint8_t value = exampleClass.GetCounter();
         REQUIRE(value == 1);
 }
+
+TEST_CASE("How Pointers Work", "[pointers]")
+{
+        int var = 8; // Created on the stack
+        int *ptr = &var;
+        *ptr = 10; // Dereferencing a pointer and writing on it
+        std::cout << var << std::endl;
+
+        REQUIRE(1 == 1);
+}
