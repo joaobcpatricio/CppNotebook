@@ -206,3 +206,68 @@ Example double pointer:
     char ** ptr = &buffer;  // Double pointer (pointer to a pointer)
     delete[] buffer;
 ```
+Example changing pointer:
+```cpp
+    int a = 5;
+    int b = 8;
+    int* ref = &a;  //ref points to a
+    *ref = 2;   //a = 2
+    ref = &b    //ref points now to b
+    *ref = 1;   /b = 1
+    std::cout<< a << std::endl; //2
+    std::cout<< b << std::endl; //1
+```
+
+
+## References
+
+Is a way to reference an existing variable. Unlike a pointer, we cannot create a new reference. They do not occupy memory, they refer to already existent objects.
+
+Once you declare a reference, unlike pointers, you cannot change what it references.
+
+E.g.:
+```cpp
+    int a = 5;
+    int b = 8;
+    int& ref = a;   //ref references to a;
+    ref = b;    //same as a=8; ref still references to a, just sets the value a to be 8
+```
+
+Simple example:
+```cpp
+    int a = 5;
+    int* b = &a;    // "&" not next to a type, is the address
+    int& ref = a;   // "&" next to a type means reference. This creates an alias (does not exist in compile code, only on our source code).
+    ref = 2;
+    std::cout<< ref << std::endl;   //Will print a (5).
+```
+
+Broader example:
+```cpp
+void Increment(int value){  //This just copyes "value" to the function, does not change the original.
+    value++;
+}
+
+void Increment2(int* value){  //This receibves the address, so it can actually chaneg the original value
+    (*value)++;   //only "value++" would just increment the address and not the value.
+}
+
+void Increment3(int& value){  //This directly access and changes the original value without need to reference it from the address from a pointer (e.g. Increment2).
+    value++;
+}
+
+int main(){
+    int a=5;
+    Increment(a);
+    std::cout<< a << std::endl; //5
+    Increment2(&a);
+    std::cout<< a << std::endl; //6
+    Increment3(a);
+    std::cout<< a << std::endl; //7
+}
+```
+
+In sum, references for many options is cleaner than using a pointer.
+
+
+## Classes

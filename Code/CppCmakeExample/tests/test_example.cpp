@@ -29,5 +29,10 @@ TEST_CASE("How Pointers Work", "[pointers]")
         *ptr = 10; // Dereferencing a pointer and writing on it
         std::cout << var << std::endl;
 
-        REQUIRE(1 == 1);
+        char *buffer = new char[8]; // Created at the heap
+        memset(buffer, 0, 8);       // Fills this memory with 0
+        char **dptr = &buffer;       // Double pointer (pointer to a pointer)
+        delete[] buffer;
+
+        SUCCEED();
 }

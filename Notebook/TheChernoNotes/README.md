@@ -13,6 +13,8 @@
 - [Loops](Part1.md#loops)
 - [Control Flow](Part1.md#control-flow)
 - [Pointers](Part1.md#pointers)
+- [References](Part1.md#references)
+- [Classes](Part1.md#classes)
 </details>
 
 <details>
