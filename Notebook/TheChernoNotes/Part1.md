@@ -271,3 +271,17 @@ In sum, references for many options is cleaner than using a pointer.
 
 
 ## Classes
+
+Classes in C++ are user-defined data types that contain both data (attributes) and functions (methods), enabling encapsulation and abstraction, which are fundamental principles of Object-Oriented Programming.
+
+Classes are "type", therefore their naming should be unique.
+
+Variables that are made from class types are called objects.
+
+
+## Classes vs Structs
+
+In short technically, just the visibility, a class is private by default. Only for compatibility structs still exist.
+
+Among different definitions of usage, an definition I sympathize is, for example, to just represent data and not big functionality or even inheritance, structs can be used.
+
