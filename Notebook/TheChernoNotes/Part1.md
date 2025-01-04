@@ -285,3 +285,50 @@ In short technically, just the visibility, a class is private by default. Only f
 
 Among different definitions of usage, an definition I sympathize is, for example, to just represent data and not big functionality or even inheritance, structs can be used.
 
+### Struct example
+
+```cpp
+struct Vec2{
+    float x, y;
+}   
+```
+
+### Class example
+
+```cpp
+    class Log{
+    public: //for public variables
+        const int LogLevelError = 0;
+        const int LogLevelWarning = 1;
+        const int LogLevelInfo = 2;
+    private:
+         int m_LogLevel = LogLevelInfo;
+    public: //for public methods
+        void SetLevel(int level){
+            m_LogLevel = level;
+        }
+
+        void Error(const char* message){
+            if(m_LogLevel >= LogLevelError){
+                std::cout << "[ERROR]: " << message << std::endl;
+            }
+        }
+        void Warn(const char* message){
+            if(m_LogLevel >= LogLevelWarning){
+                std::cout << "[WARNING]: " << message << std::endl;
+            }
+        }
+        void Info(const char* message){
+            if(m_LogLevel >= LogLevelInfo){
+                std::cout << "[INFO]: " << message << std::endl;
+            }
+        }
+    }
+
+    int main(){
+        Log log;
+        log.SetLevel(log.LogLevelWarning)
+        log.Warn("Hello!");
+    }
+```
+
