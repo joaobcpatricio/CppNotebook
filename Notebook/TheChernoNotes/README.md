@@ -15,6 +15,7 @@
 - [Pointers](Part1.md#pointers)
 - [References](Part1.md#references)
 - [Classes](Part1.md#classes)
+- [Static](Part1.md#static)
 </details>
 
 <details>

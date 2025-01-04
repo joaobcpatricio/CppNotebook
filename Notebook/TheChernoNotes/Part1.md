@@ -332,3 +332,17 @@ struct Vec2{
     }
 ```
 
+## Static
+
+In C++, static members (variables and functions) behave differently based on whether they're declared inside or outside their respective classes. Here's a breakdown:
+
+- Static outside of a class means that the linkage of that symbol that was declared to be static is going to be internal, meaning, it is only going to be visible to that translation unit that has defined it in.
+- Static variable inside a class or struct means that variable is actually going to share memory with all of the instances of the class, meaning that basically across all instances that one creats of that class or struct, there is only going to be on instance of that static variable, and a similar thing applies to static methods in a class.
+
+### Static Outside a class
+
+Inside a *.cpp* file we declare a static varlable, e.g.:
+<br> ```static int s_Variable = 5;```. 
+<br> Here the linker will not look outside this translation unit for linkages to this variable.
+
+It kind of works like private inside a class, we cannot see it from outside. If one removes the static, we get a duplication linkage error.
