@@ -17,6 +17,8 @@
 - [Classes](Part1.md#classes)
 - [Static](Part1.md#static)
 - [Enums](Part1.md#enums)
+- [Constructors](Part2.md#constructors)
+- [Destructors](Part2.md#destructors)
 </details>
 
 <details>

@@ -1,5 +1,5 @@
 # **C++** 
-# Part 1 DE
+# Part 1
 
 
 #### [Table of Contents](README.md#table-of-contents)

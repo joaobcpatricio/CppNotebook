@@ -37,8 +37,20 @@ TEST_CASE("How Pointers Work", "[pointers]")
         SUCCEED();
 }
 
-TEST_CASE("How enums", "[enums]"){
+TEST_CASE("Enums examples", "[enums]"){
         DayOfWeek today = DayOfWeek::Friday;
         REQUIRE( today == DayOfWeek::Friday ); // Direct comparison within the enum
         REQUIRE( static_cast<int>(today) == 5); // Explicit cast to int
 }
+
+TEST_CASE("Dog Constructor", "[construct]") {
+  Dog myDog("Buddy", 3);
+  REQUIRE(myDog.getName() == "Buddy");
+  REQUIRE(myDog.getAge() == 3);
+
+  Dog defaultDog;
+  REQUIRE(defaultDog.getName() == "Unknown");
+  REQUIRE(defaultDog.getAge() == 0);
+
+}
+
