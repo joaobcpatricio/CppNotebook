@@ -36,3 +36,9 @@ TEST_CASE("How Pointers Work", "[pointers]")
 
         SUCCEED();
 }
+
+TEST_CASE("How enums", "[enums]"){
+        DayOfWeek today = DayOfWeek::Friday;
+        REQUIRE( today == DayOfWeek::Friday ); // Direct comparison within the enum
+        REQUIRE( static_cast<int>(today) == 5); // Explicit cast to int
+}

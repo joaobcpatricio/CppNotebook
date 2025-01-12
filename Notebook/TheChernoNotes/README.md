@@ -16,6 +16,7 @@
 - [References](Part1.md#references)
 - [Classes](Part1.md#classes)
 - [Static](Part1.md#static)
+- [Enums](Part1.md#enums)
 </details>
 
 <details>

@@ -332,6 +332,7 @@ struct Vec2{
     }
 ```
 
+
 ## Static
 
 In C++, static members (variables and functions) behave differently based on whether they're declared inside or outside their respective classes. Here's a breakdown:
@@ -339,10 +340,120 @@ In C++, static members (variables and functions) behave differently based on whe
 - Static outside of a class means that the linkage of that symbol that was declared to be static is going to be internal, meaning, it is only going to be visible to that translation unit that has defined it in.
 - Static variable inside a class or struct means that variable is actually going to share memory with all of the instances of the class, meaning that basically across all instances that one creats of that class or struct, there is only going to be on instance of that static variable, and a similar thing applies to static methods in a class.
 
-### Static Outside a class
+
+### Static outside a class
 
 Inside a *.cpp* file we declare a static varlable, e.g.:
 <br> ```static int s_Variable = 5;```. 
 <br> Here the linker will not look outside this translation unit for linkages to this variable.
 
 It kind of works like private inside a class, we cannot see it from outside. If one removes the static, we get a duplication linkage error.
+
+
+### Static for classes and structs
+
+If static is used inside a class, for a variable it means that there is only going to be one instance of that variable across all instances. So if one instance changes it, it will reflect on all others. At that point, there is no value in referring to the variable through a class instance.
+
+Similar goes with methods, where we do not get access to the class instance, and therefor can even be called without a class instance and inside a static method one cannot write code which refers to a class instance, since it does not actually have that instance to refer to.
+
+Example:
+
+Part 1
+```cpp
+    #include <iostream>
+
+    struct Entity{
+        static int x, y;
+        void Print(){
+            std::cout << x << "," << y << std::endl;
+        }
+    }
+
+    int main(){
+        Entity e;
+        e.x = 2;
+        e.y = 3;
+
+        Entity e1 = { 5, 8};
+
+        e.Print(); //2,3
+        e1.Print(); //5,8
+    }
+```
+
+Part 2 - change to static
+```cpp
+    #include <iostream>
+
+    struct Entity{
+        static int x, y;
+        void Print(){
+            std::cout << x << "," << y << std::endl;
+        }
+    }
+    //this, or linkage will fail when in main we try to set
+    int Entity::x;
+    int Entity::y;
+
+    int main(){
+        Entity e;
+        e.x = 2;
+        e.y = 3;
+
+        Entity e1;// = { 5, 8}; =>this will not work because of static
+        e.x = 5;
+        e.y = 8;
+
+        e.Print();  //5,8
+        e1.Print(); //5,8
+
+    }
+```
+
+Part 3 - access properly
+```cpp
+    #include <iostream>
+
+    struct Entity{
+        static int x, y;
+        void Print(){
+            std::cout << x << "," << y << std::endl;
+        }
+    }
+    //this, or linkage will fail when in main we try to set
+    int Entity::x;
+    int Entity::y;
+
+    int main(){
+        Entity e;
+        Entity::x = 2;
+        Entity::y = 3;
+
+        Entity e1;// = { 5, 8}; =>this will not work because of static
+        Entity::x = 5;
+        Entity::y = 8;
+
+        e.Print();  //5,8
+        e1.Print(); //5,8
+
+    }
+```
+
+
+## Enums
+
+Enums is a short for enumeration of a set of values, giving them names.
+
+In C++, an enum (enumeration) defines a new type whose values are a set of named integer constants. It improves code readability by replacing "magic numbers" with descriptive names.
+
+```cpp
+enum class DayOfWeek { 
+    Monday=1, Tuesday=2, Wednesday=3, Thursday=4, Friday=5, Saturday=6, Sunday=0 
+};
+
+DayOfWeek today = DayOfWeek::Friday;
+```
+
+By default it sets the first variable to be int with value 0 and increment sequentially, but it is advise to define the values.
+
+enum class (scoped enum, C++11 and later) is preferred as it avoids accidental implicit conversions to integers, enhancing type safety. Unscoped enums (like enum DayOfWeek { ... };) are less safe and generally discouraged in modern C++. The underlying type is usually int, but can be specified (e.g., enum class DayOfWeek : char { ... };). As long as they are within int limits, for example, float would not work.
