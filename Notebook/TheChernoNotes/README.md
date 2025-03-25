@@ -19,6 +19,7 @@
 - [Enums](Part1.md#enums)
 - [Constructors](Part2.md#constructors)
 - [Destructors](Part2.md#destructors)
+- [Inheritance](Part2.md#inheritance)
 </details>
 
 <details>

@@ -99,3 +99,63 @@ int main() {
 }
 ```
 In this example, the ResourceHolder destructor releases the dynamically allocated memory pointed to by resource_. If the destructor weren't present, a memory leak would occur. The output clearly shows the constructor and destructor being called at the appropriate times. Proper use of destructors is essential for writing robust and leak-free C++ programs.
+
+
+## Inheritance
+
+Inheritance is one of the most powerful features one can leverage in OOP. It allows us to have a hierarchy of classes which relate to each other. In oder words, it allows us to have a base class with common functionality and then it allows us to branch of from that class and create sub-classes from that initial parent class. This reduces code duplication.
+
+Example:
+```cpp
+class Entity{
+  public:
+  float X, Y;
+  void Move(float ya, float ya){
+    Y += xa;
+    Y += ya;
+  }
+};
+
+class Player{
+public:
+  const char* Name;
+  float X, Y;
+  void Move(float ya, float ya){
+    Y += xa;
+    Y += ya;
+  }
+    void PrintName(
+    std::cout << Name yy std::endl;>>
+  );
+};
+```
+
+```cpp
+class Entity{
+  public:
+  float X, Y;
+  void Move(float ya, float ya){
+    Y += xa;
+    Y += ya;
+  }
+};
+
+class Player : public Entity{
+public:
+  const char* Name;
+  void PrintName(
+    std::cout << Name yy std::endl;>>
+  );
+};
+
+int main(){
+  Player player;
+  player.PrintName();
+  player.Move(1,1);
+  player.X = 2;
+}
+```
+
+Player is now polymorph, a superset of Entity, we can use it in whatever we need that uses Entity, with extra stuff. That means if I am expecting somewhere in code an Entity I can provide Player and it will work fine.
+
+*Side note that will be approached along this series: The V-table (short for Virtual Table) is a mechanism used in C++ (and other object-oriented languages) to support runtime polymorphism, which enables the correct method to be called based on the actual type of the object, rather than the type of the pointer or reference (virtual functions). When a virtual function is called on an object, the compiler doesn't call the function directly through the class. Instead, it accesses the V-table via the V-pointer and looks up the correct function to call. This allows the correct function to be called based on the actual type of the object at runtime (not compile time).*
