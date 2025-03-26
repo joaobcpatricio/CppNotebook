@@ -159,3 +159,160 @@ int main(){
 Player is now polymorph, a superset of Entity, we can use it in whatever we need that uses Entity, with extra stuff. That means if I am expecting somewhere in code an Entity I can provide Player and it will work fine.
 
 *Side note that will be approached along this series: The V-table (short for Virtual Table) is a mechanism used in C++ (and other object-oriented languages) to support runtime polymorphism, which enables the correct method to be called based on the actual type of the object, rather than the type of the pointer or reference (virtual functions). When a virtual function is called on an object, the compiler doesn't call the function directly through the class. Instead, it accesses the V-table via the V-pointer and looks up the correct function to call. This allows the correct function to be called based on the actual type of the object at runtime (not compile time).*
+
+
+## Virtual Functions
+
+Virtual functions allow to override methods in subclasses.
+
+Example:
+```cpp
+class Entity{
+  public:
+  std::string GetName() {return "Entity";}
+}
+
+class Player : public Entity{
+private:
+  std::string m_Name;
+public:
+  Player(const std::string& name) : m_Name(name) {}
+
+  std::string GetName() { return m_Name; }
+}
+```
+With this, if we call `player->GetName()` we get the name we set, but if we use polymorphism and pass down the player as an entity, it will now return *"Entity"* instead. 
+```cpp
+int main(){
+  Entity* e = new Entity();
+  std::cout << e->GetName() << std::endl; //Entity
+
+  Player* p = new Player("Cherno");
+  std::cout << p->GetName() << std::endl; // Cherno
+
+  Entity* entity = p;
+  std::cout << entity->GetName() << std::endl; //Entity
+}
+```
+
+To avoid such, we need to make it virtual.
+Virtual functions introduces dynamic dispatch, where the compilation is usually implemented with a V table.
+A V table contains a map of all the virtual functions of our base class to the actual overwritten function in runtime.
+
+```cpp
+class Entity{
+  public:
+  virtual std::string GetName() {return "Entity";}
+}
+
+class Player : public Entity{
+private:
+  std::string m_Name;
+public:
+  Player(const std::string& name) : m_Name(name) {}
+
+  std::string GetName() override { return m_Name; }
+}
+int main(){
+  Entity* e = new Entity();
+  std::cout << e->GetName() << std::endl; //Entity
+
+  Player* p = new Player("Cherno");
+  std::cout << p->GetName() << std::endl; // Cherno
+
+  Entity* entity = p;
+  std::cout << entity->GetName() << std::endl; //Cherno
+}
+```
+
+Adding *override* is not required for it to work, but it is advised as it makes the code more readable and to prevent bugs, like from misspelling mistakes. E.g. if I wrote *Getname* instead of *GetName* it would warn be about it as it does not exist on the base class.
+
+Virtual functions come a two runtime costs:
+1. Additional memory is needed to store information in the V table so that we can send it to the function with the parameter pointing to V table in the base class with the True Pointer
+2. every time we call a virtual function it needs to go through that table and check which function is mapped to.
+
+With most modern HW, this performance costs is redundant, except for possibly some limited embedded devices.
+
+
+## Interfaces
+
+A type of virtual functions are pure virtual functions, that are similar to abstract method or interface in other languages like C# or Java.
+
+It allows the definition of a method in a base class that does not have an implementation and to force subclasses to actually implement that function. Doing this is often referred to as an interface. 
+
+When an Interface is only consistent of virtual methods, one cannot directly instantiate one.
+
+Example:
+```cpp
+class Entity{
+  public:
+  virtual std::string GetName() = 0;  //=0 makes it pure virtual.
+}
+
+class Player : public Entity{
+private:
+  std::string m_Name;
+public:
+  Player(const std::string& name) : m_Name(name) {}
+
+  std::string GetName() override { return m_Name; }
+}
+int main(){
+  // Entity* e = new Entity(); => this is no more possible
+  Entity* e = new Player("");
+  std::cout << e->GetName() << std::endl; //Entity
+
+  Player* p = new Player("Cherno");
+  std::cout << p->GetName() << std::endl; // Cherno
+
+  Entity* entity = p;
+  std::cout << entity->GetName() << std::endl; //Cherno
+}
+```
+
+Example of interface usage:
+
+```cpp
+class Printable{
+public:
+  virtual std::string GetClassName() = 0;
+}
+
+class Entity : public Printable{
+  public:
+  virtual std::string GetName() {return "Entity";}
+  std::string GetClassName() override { return "Entity"; }
+}
+
+class Player : public Entity{
+private:
+  std::string m_Name;
+public:
+  Player(const std::string& name) : m_Name(name) {}
+
+  std::string GetName() override { return m_Name; }
+  std::string GetClassName() override { return "Entity"; }
+}
+
+void PrintName(Entity* entity){
+  std::cout << entity->GetName() << std::endl;
+}
+
+void Print( Printable obj){
+  std::cout << obj->GetClassName() << std::endl;
+}
+
+int main(){
+  Entity* e = new Entity();
+  Print(e); //Entity
+
+  Player* p = new Player("Cherno");
+  Print(p); // Player
+}
+```
+
+On the previous example, we have the Printable as an interface and Player inherits that from the Entity.
+
+This is useful so we can guarantee that a class has certain defined method calls, that then change on implementation due to their specifics.
+
+For example, by having an interface of some code, another person can work on the part that only consumes it, testing with a mock, before it is ready, not being blocked by the developer that is working on the actual class that inherits from that interface.
