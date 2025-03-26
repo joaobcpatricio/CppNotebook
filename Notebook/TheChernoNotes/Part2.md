@@ -316,3 +316,88 @@ On the previous example, we have the Printable as an interface and Player inheri
 This is useful so we can guarantee that a class has certain defined method calls, that then change on implementation due to their specifics.
 
 For example, by having an interface of some code, another person can work on the part that only consumes it, testing with a mock, before it is ready, not being blocked by the developer that is working on the actual class that inherits from that interface.
+
+
+## Visibility
+
+In C++, visibility (or access control) determines which parts of your code can access the members (variables and functions) of a class. There are three main keywords that control visibility:
+
+* public: Members declared as public are accessible from anywhere, both inside and outside the class. This is generally used for the interface of the class, the things you want other parts of your code to use.
+
+* private: Members declared as private are only accessible from within the same class. Not even derived classes can access them. This is used to hide internal implementation details and protect the integrity of the class's state.
+
+* protected: Members declared as protected are accessible from within the same class and from derived (child) classes. They are not accessible from outside the class hierarchy. This is useful for providing functionality that derived classes need but that should not be exposed to the general public.
+
+In C++ classes, the default is private, while a struct is public.
+
+
+## Arrays
+
+Array is a collection of variables in a particular order (in a row) that make sense to be together.
+
+Example:
+
+```cpp
+int main(){
+  int example[5];   //goes from index 0 to 4  
+                    //example is a memory address itself pointing to the start of the array, the index moves from its start.
+  example[0] = 1;
+  example[4] = 5;
+
+  std::cout<<example[0] << std::endl;
+
+  for(int i=0; i<5; i++){
+    example[i] = i+1;
+  }
+
+  int* ptr = example; //array "is just a pointer"
+  *(ptr +2) = 6;  //same as doing example[2]=6 // same as *(int*)*((char*)ptr + 8) = 6 // because type char is only 1 byte while int is 4
+}
+```
+
+```cpp
+int main(){
+  int example[5]; //created on the stack, will be deleted once we get out of scope
+
+  int * another = new int[5]; //created on the heap, will be alive until we delete it
+  delete[] another;
+}
+```
+
+Using heap can add more jumps and decrease performance, stack optimizes to have the code together.
+
+To know the size of the array there are some ways, compiler dependent and non trustable:
+```cpp
+int main(){
+  int a[5];
+  sizeof(a);//4*5=20 bytes
+  int count = sizeof(a)/sizeof(int);  //=5  //only works with stack allocated variables
+}
+```
+
+```cpp
+class Entity{
+public:
+  static cons int exampleSize = 5;
+  int example[exampleSize];
+  Entity(){
+    for(int i=0; i<exampleSize; i++){
+      example[i] = 2;
+    }
+  }
+}
+```
+
+With C++ version 11 or higher, best is tu use the standard library:
+```cpp
+#include <array>
+class Entity{
+public:
+  std::array<int, 5> another;
+  Entity(){
+    for(int i=0; i<another.size(); i++){
+      example[i] = 2;
+    }
+  }
+}
+```

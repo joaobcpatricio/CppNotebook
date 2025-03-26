@@ -22,6 +22,8 @@
 - [Inheritance](Part2.md#inheritance)
 - [Virtual Functions](Part2.md#virtual-functions)
 - [Inheritance](Part2.md#inheritance)
+- [Visibility](Part2.md#visibility)
+- [Arrays](Part2.md#arrays)
 </details>
 
 <details>
