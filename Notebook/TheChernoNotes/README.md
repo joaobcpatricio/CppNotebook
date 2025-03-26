@@ -24,6 +24,9 @@
 - [Inheritance](Part2.md#inheritance)
 - [Visibility](Part2.md#visibility)
 - [Arrays](Part2.md#arrays)
+- [Strings](Part2.md#strings)
+- [String Literals](Part2.md#string-literals)
+- [Const](Part3.md#const)
 </details>
 
 <details>

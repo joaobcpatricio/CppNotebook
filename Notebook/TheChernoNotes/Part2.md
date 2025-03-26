@@ -401,3 +401,110 @@ public:
   }
 }
 ```
+
+
+## Strings
+
+String is a group of characters, text. 
+
+*Note: do check the topics [ASCII](https://www.ascii-code.com) and char.*
+
+Example code "C style":
+```cpp
+int main(){
+  char* name = "Cherno";  //const char* name => no need to be const, but should as we should avoid changing it as that would not extend but do a new allocation on memory, costing performance.
+}
+```
+
+A string ends with a null termination character  *\0*, and functions use this to know where the string ends.
+
+Example manipulations:
+```cpp
+int main(){
+  char* name = "Cherno";
+  name[2] = 'a';
+  std::cout << name << std::endl; //Charno
+
+  char name2[6] = {'C','h', 'e', 'r', 'n', 'o'}
+  std::cout << name2 << std::endl;  //prints weird characters after Cherno
+
+    char name2[6] = {'C','h', 'e', 'r', 'n', 'o', 0}
+  std::cout << name2 << std::endl;  //Cherno
+}
+```
+
+Example in C++ style (basically abstracts the previous logic plus other useful functions):
+```cpp
+#include <string>
+int main(){
+  std::string name = "Cherno";  //each content under "" is a const char array, so we cannot add 2 like: std::string name = "Cherno"+ "hello";
+  name += " hello!";
+  //OR
+  std::string name = std::string("Cherno") + "hello";
+  std::cout << name << std::endl; //Cherno
+  name.size();  //gives the string size
+  bool contains = name.find("no" != std::string::npos)
+}
+```
+
+Passing strings we should do as a const reference instead of a copy that is quite slow, more about this later on:
+```cpp
+void PrintString(const std::string& string){
+  std::cout << string << std::end;
+}
+```
+
+
+## String Literals
+
+Introduced in C++14 STD, string literals in C++ are sequences of characters enclosed in double quotes (e.g., "Hello, world!"). Key points:
+
+* Type: String literals are of type const char[], a constant array of characters. They are implicitly null-terminated.
+
+* Storage: String literals are usually stored in a read-only memory section. Modifying them directly is undefined behavior.
+
+* Concatenation: Adjacent string literals are automatically concatenated by the compiler: "Hello" " " "world" becomes "Hello world".
+
+* Encoding: By default, they use the narrow character encoding (usually ASCII or UTF-8). L"Wide string" creates a wide character string literal (const wchar_t[]), u8"UTF-8 string", u"UTF-16 string" and U"UTF-32 string" create string literals with specific Unicode encodings, which are usually preferred for internationalization.
+
+* Raw String Literals: R"(String with "quotes" and \backslashes)" avoids escaping special characters.
+
+Examples:
+```cpp
+int main(){
+  const char* name = "Cherno"; // =u8"Cherno"
+  const wchar_t* name2 = L"Cherno"; //2Byte per character on most compilers
+  const char16_t* name3 = u"Cherno"; //2Byte per character on most compilers
+  const char32_t * name4 = U"Cherno"; //4Byte per character on most compilers
+}
+```
+
+```cpp
+int main(){
+  auto message = "Hello, "s + "world!"s; // Directly creates std::string objects
+  std::cout << message << std::endl; // Output: Hello, world!
+  return 0;
+}
+```
+
+Key Differences Summarized:
+
+| Feature | std::string | std::string_literals | 
+|-------------------|-------------------------------------------------|-------------------------------------------------------| 
+| Type | Class for dynamic strings | Namespace for user-defined literals |
+ | Functionality | Represents and manipulates strings | Creates std::string objects directly from literals | 
+ | Usage | Explicitly construct std::string objects | Use the s suffix on string literals to create std::string objects directly | 
+ | Header | `<string>` | `<string>` | 
+ | Introduced in | C++98 | C++14 |
+
+ Additional examples:
+ ```cpp
+int main(){
+  const char * ex = R"(Line1
+  Line2
+  Line3
+  Line4)";
+}
+ ```
+
+ String literals are always stored in read only memory. Therefore, they are faster to access, and should be used if we do not intend to manipulate it. If so, then std::string is the option.
