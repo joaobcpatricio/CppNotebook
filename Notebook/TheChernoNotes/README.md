@@ -27,6 +27,7 @@
 - [Strings](Part2.md#strings)
 - [String Literals](Part2.md#string-literals)
 - [Const](Part3.md#const)
+- [Mutable](Part3.md#mutable)
 </details>
 
 <details>
