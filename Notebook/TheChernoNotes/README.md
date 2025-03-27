@@ -28,6 +28,7 @@
 - [String Literals](Part2.md#string-literals)
 - [Const](Part3.md#const)
 - [Mutable](Part3.md#mutable)
+- [Member Initializer Lists](Part3.md#member-initializer-lists)
 </details>
 
 <details>

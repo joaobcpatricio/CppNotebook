@@ -79,3 +79,69 @@ int main(){
 }
 ```
 This makes the code look cleaner, and of course, it will not actually change x outside as it was passed by value. In reality, is very unusual to need to do this.
+
+
+## Member Initializer Lists
+*Constructor Initializer List*
+
+It is a way to initialize class member functions in the constructor.
+
+There are two ways:
+```cpp
+class Entit<{
+private:
+    std::string m_Name;
+    int m_Score;
+public:
+    Entity(){
+        m_Name = "Unknown";
+        m_Score = 0;
+    }
+
+    Entity(const std::string& name){
+        m_Name = name;
+    }
+
+    const std::string& GetName() const { return m_Name; }
+};
+int main(){
+    Entity e0;
+    std::cout << e0.GetName() << std::endl; //Unknown
+
+    Entity e1("Cherno");
+    std::cout << e1.GetName() << std::endl; //Cherno
+}
+```
+Another (most performant) way:
+```cpp
+class Entit<{
+private:
+    std::string m_Name;
+    int m_Score;
+public:
+    Entity() 
+        : m_Name("Unknown"), m_Score(0) //follow the same order as declared above!
+    {
+    }
+
+    Entity(const std::string& name)
+        : m_Name(name), m_Score(0)
+    {
+    }
+
+    const std::string& GetName() const { return m_Name; }
+};
+int main(){
+    Entity e0;
+    std::cout << e0.GetName() << std::endl; //Unknown
+
+    Entity e1("Cherno");
+    std::cout << e1.GetName() << std::endl; //Cherno
+}
+```
+
+This make code cleaner and split from actual logic in the method.
+
+It has better performance, as in the first case it will construct, in case of a string, for example, the variable twice, at declaration and then when we set. With the latter way it only directly sets the variable value when declaring it.
+
+*Note: in case of integers these are only initialized when a value is actually set.*
