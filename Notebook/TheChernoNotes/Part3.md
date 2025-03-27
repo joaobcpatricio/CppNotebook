@@ -145,3 +145,41 @@ This make code cleaner and split from actual logic in the method.
 It has better performance, as in the first case it will construct, in case of a string, for example, the variable twice, at declaration and then when we set. With the latter way it only directly sets the variable value when declaring it.
 
 *Note: in case of integers these are only initialized when a value is actually set.*
+
+
+## Ternary Operators
+
+Is syntax sugar for *if statements*. By many clean code styles, it is considered not a good practice to be used.
+
+Due to compiling optimization, it might also be more performant. 
+
+Example:
+```cpp
+static int s_Level = 1;
+static int s_Speed = 2;
+int main(){
+    if(s_Level)>5{
+        s_Speed = 10;
+    }else{
+        s_Speed = 5;
+    }
+}
+```
+
+```cpp
+static int s_Level = 1;
+static int s_Speed = 2;
+int main(){
+    s_Speed = s_Level > 5 ? 10 : 5;  //first member is if true, the second if false
+}
+```
+
+```cpp
+static int s_Level = 1;
+static int s_Speed = 2;
+int main(){
+    s_Speed = s_Level > 5 ? s_Level > 10 ? 15 : 10 : 5;  //this is where it starts getting confusing...
+
+    s_Speed = s_Level > 5 && s_Level < 100 ? s_Level > 10 ? 15 : 10 : 5;    //the && goes first
+}
+```
