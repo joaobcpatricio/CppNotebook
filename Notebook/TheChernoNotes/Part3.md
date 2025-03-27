@@ -183,3 +183,58 @@ int main(){
     s_Speed = s_Level > 5 && s_Level < 100 ? s_Level > 10 ? 15 : 10 : 5;    //the && goes first
 }
 ```
+
+
+## Create Instantiate Objects
+
+When we create an object in C++ it needs to occupy some memory. 
+We can control if this object is created on the stack or on the heap.
+
+Stack objects have an automatic lifespan, controlled by the scope they are declared, being freed once out.
+
+At the heap, the object will stay there until we say we no longer need it.
+
+Example:
+```cpp
+using String = std::string; //for readability of the example
+class Entity{
+private:
+    String m_Name;
+public:
+    Entity() : m_Name("Unknown"){}
+    Entity(const String& name) : m_Name(name) {}
+    const String& GetName() const {return m_Name; }
+}
+
+int main(){
+    Entity e0; //created in the stack
+    //same as Entity e0("Cherno); or Entity e0 = Entity("Cherno");
+    std::cout << e0.GetName() << std::endl; //Unknown
+    //We should by default create objects like this, is the fastest and safest/managed way.
+    Entity e1 = new Entity
+}
+```
+
+If we want that to actually live outside of that function, or it is too large (stack is usually around 1 or 2 MB), there we want to use the heap.
+Example:
+```cpp
+using String = std::string; //for readability of the example
+class Entity{
+private:
+    String m_Name;
+public:
+    Entity() : m_Name("Unknown"){}
+    Entity(const String& name) : m_Name(name) {}
+    const String& GetName() const {return m_Name; }
+}
+
+int main(){
+    Entity* e;
+    {//We create a scope
+        Entity* entity = new Entity("Cherno");
+        e = entity;
+        std::cout << entity->GetName() << std::endl;        
+    }
+    delete e;
+}
+```

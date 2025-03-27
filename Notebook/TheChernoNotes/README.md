@@ -30,6 +30,7 @@
 - [Mutable](Part3.md#mutable)
 - [Member Initializer Lists](Part3.md#member-initializer-lists)
 - [Ternary Operators](Part3.md#ternary-operators)
+- [Create Instantiate Objects](Part3.md#create-instantiate-objects)
 </details>
 
 <details>
