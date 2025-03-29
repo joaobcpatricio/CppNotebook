@@ -238,3 +238,31 @@ int main(){
     delete e;
 }
 ```
+
+
+## The New keyword
+
+The mane purpose of *new* operator is to allocate memory, specifically on the heap. 
+
+When used it also calls the constructor.
+
+Do not forget to always call the delete once done!
+
+If, for example, we call new with *[]*, then we call delete also with *[]*.
+
+
+
+```cpp
+int main(){
+    int a = 2;
+    int* b = new int[50];   //200bytes of memory
+
+    Entity* e = new Entity();   //not mandatory to have the ()
+ // Entity* e = (Entity*)malloc(sizeof(Entity));    //same as is before in C
+
+ // Entity* e = new(b) Entity();    //this allocates the Entity at the b location in memory, more on this topic later under placement.
+
+    delete e;
+    delete[] b; 
+}
+```
