@@ -266,3 +266,11 @@ int main(){
     delete[] b; 
 }
 ```
+
+
+## Implicit Conversion and the Explicit keyword
+
+TBD
+```cpp
+
+```

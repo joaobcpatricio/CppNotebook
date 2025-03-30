@@ -32,6 +32,13 @@
 - [Ternary Operators](Part3.md#ternary-operators)
 - [Create Instantiate Objects](Part3.md#create-instantiate-objects)
 - [The New keyword](Part3.md#the-new-keyword)
+- [Implicit Conversion and the Explicit keyword](Part3.md#implicit-conversion-and-the-explicit-keyword)
+
+Out of order:
+
+- [Object Lifetime](Part4.md#object-lifetime)
+- [Smart Pointers](Part4.md#smart-pointers)
+
 </details>
 
 <details>
