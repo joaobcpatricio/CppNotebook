@@ -521,3 +521,66 @@ int main(){
     Singleton::Get().Hello();
 }
 ```
+
+
+## Static
+
+In C there are mostly 3 uses:
+
+1. A variable declared static within the body of a function maintains its value between function invocation:
+```cpp
+void counter(){
+    static int count = 0;
+    count ++;
+}
+int main(){
+    counter();  //1
+    counter();  //2
+    counter();  //3
+}
+```
+2. A variable declared static within a module, but outside of a function, is accessible by all functions within that module (file). It is not accessible by a function within any other module (file). That is, it is a **localized global**.
+
+*module1.c*
+```cpp
+static int globalVar = 10;
+void printVar(){
+    printf("%d\n", globalVar);
+}
+void modifyVar(){
+    globalVar += 5;
+}
+```
+
+*main.c*
+```cpp
+extern void printVar();
+extern void modifyVar();
+int main(){
+    printVar(); //10
+    modifyVar();
+    printVar(); //15
+}
+```
+*If another file tries "extern int globalVar;" it will fail.*
+
+3. Functions declared static within a module may only be called by other function within that module.That is, the scope of the function is localized to the module within which it is declared.
+
+*module.c*
+```cpp
+static void hiddenFunction(){
+    print ...
+}
+void callHiddenFunction(){
+    hiddenFunction();
+}
+```
+
+*main.c*
+```cpp
+extern void callHiddenFunction();
+int main(){
+    callHiddenFunction();   //Works
+    //hiddenFunction(); //Does not work
+}
+```
