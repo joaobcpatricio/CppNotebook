@@ -43,6 +43,7 @@ Out of order:
 - [Local Static](Part4.md#local-static)
 - [Static](Part4.md#static)
 - [How to deal with multiple return values](Part4.md#how-to-deal-with-multiple-return-values)
+- [Binary and Bitwise Operators](Part4.md#binary-and-bitwise-operators)
 
 </details>
 

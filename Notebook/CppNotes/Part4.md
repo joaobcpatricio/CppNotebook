@@ -642,3 +642,31 @@ int main() {
 ```
 
 
+## Binary and Bitwise Operators
+
+```cpp
+int a = 5;  // [0000 0101][0000 0000][0000 0000][0000 0000]
+//4 bytes   //lille endian
+
+```
+
+```cpp
+<<  // left shift
+>>  // right shift
+&   // bitwise AND
+|   // bitwise OR
+^   // bitwise XOR
+~   // bitwise NOT
+```
+
+Example:
+```cpp
+int a = 5;  //0101
+int b = 5;
+a << 1 = 10  //1010 (2^3+0+2^1+0)   //IT MULTIPLYES x2^n
+b >> 1 = 2; //0010                  //IT HALVES /2^n
+```
+
+For a signed type, the behavior would be more tricky.
+
+No need to force using bitshifting for multiplication or division, as it is not so readable and the compiler will already do this for us.
