@@ -303,3 +303,154 @@ int main(){
 ```
 
 Conclusion: in general, pass objects as const reference.
+
+
+## Operators and operator overloading
+
+An operator is basically some kind of symbol we use usually instead of a function, including mathematical operators but others.
+
+Overloading in this subject mostly means gibing a new meaning to or adding parameters to or creating. Operator overloading allows to define or change the behavior of an operator on the program.
+
+The use should, in reality, be minimal and only where it makes sense.
+
+Lets see some examples.
+
+Initially:
+```cpp
+struct Vector2{
+    float x, y;
+    Vector2(float x, float y) : x(x), y(y){}
+    Vector2 Add(const Vector2& other) const{
+        return Vector2(x+other.x, y+other.y);
+    }
+    Vector2 Multiply(const Vector2& other) const{
+        return Vector2(x*other.x, y*other.y);
+    }
+}
+int main(){
+    Vector2 position(4.0f, 4.0f);
+    Vector2 speed(0.5f, 1.5f);
+    Vector2 result = position.Add(speed);
+
+    Vector2 powerup(1.1f, 1.1f);
+    Vector2 result2 = position.Add(speed.Multiply(powerup));
+
+}
+```
+
+With operator overloading:
+```cpp
+struct Vector2{
+    float x, y;
+    Vector2(float x, float y) : x(x), y(y){}
+    Vector2 Add(const Vector2& other) const{
+        return Vector2(x+other.x, y+other.y);
+    }
+
+    Vector2 operator+(const Vector2& other) const{
+        return Add(other);
+    }
+    
+    Vector2 Multiply(const Vector2& other) const{
+        return Vector2(x*other.x, y*other.y);
+    }
+
+    Vector2 operator*(const Vector2& other) const{
+        return Multiply(other);
+    }
+}
+int main(){
+    Vector2 position(4.0f, 4.0f);
+    Vector2 speed(0.5f, 1.5f);
+    Vector2 result = position.Add(speed);
+
+    Vector2 powerup(1.1f, 1.1f);
+    Vector2 result2 = position + speed * powerup;
+}
+```
+Example now for the left shift operator:
+```cpp
+struct Vector2{
+    float x, y;
+    Vector2(float x, float y) : x(x), y(y){}
+    Vector2 Add(const Vector2& other) const{
+        return Vector2(x+other.x, y+other.y);
+    }
+
+    Vector2 operator+(const Vector2& other) const{
+        return Add(other);
+    }
+    
+    Vector2 Multiply(const Vector2& other) const{
+        return Vector2(x*other.x, y*other.y);
+    }
+
+    Vector2 operator*(const Vector2& other) const{
+        return Multiply(other);
+    }
+}
+
+std::ostream& operator<<(std::ostream& stream, const Vector2& other){
+    stream << other.x << "," << other.y;
+    return stream;
+}
+int main(){
+    Vector2 position(4.0f, 4.0f);
+    Vector2 speed(0.5f, 1.5f);
+    Vector2 result = position.Add(speed);
+
+    Vector2 powerup(1.1f, 1.1f);
+    Vector2 result2 = position + speed * powerup;
+
+    std::cout << result2 <<< std::endl; //current there is no support for Vector2 type to go into cout, so we need to overload it!
+    //4.55, 5.65
+}
+```
+
+Example now for equal comparison operator:
+```cpp
+struct Vector2{
+    float x, y;
+    Vector2(float x, float y) : x(x), y(y){}
+    Vector2 Add(const Vector2& other) const{
+        return Vector2(x+other.x, y+other.y);
+    }
+
+    Vector2 operator+(const Vector2& other) const{
+        return Add(other);
+    }
+    
+    Vector2 Multiply(const Vector2& other) const{
+        return Vector2(x*other.x, y*other.y);
+    }
+
+    Vector2 operator*(const Vector2& other) const{
+        return Multiply(other);
+    }
+
+    bool operator==(const Vector2& other) const{
+        return x==other.x && y == other.y;
+    }
+    bool operator!=(const Vector2& other) const{
+        return !(*this == other);   //return !operator==(other)
+    }
+}
+
+std::ostream& operator<<(std::ostream& stream, const Vector2& other){
+    stream << other.x << "," << other.y;
+    return stream;
+}
+int main(){
+    Vector2 position(4.0f, 4.0f);
+    Vector2 speed(0.5f, 1.5f);
+    Vector2 result = position.Add(speed);
+
+    Vector2 powerup(1.1f, 1.1f);
+    Vector2 result2 = position + speed * powerup;
+
+    std::cout << result2 <<< std::endl;
+
+    if(result == result2){
+        ...
+    }
+}

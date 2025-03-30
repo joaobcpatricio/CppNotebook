@@ -39,6 +39,7 @@ Out of order:
 - [Object Lifetime](Part4.md#object-lifetime)
 - [Smart Pointers](Part4.md#smart-pointers)
 - [Copying and Copy Constructors](Part4.md#copying-and-copy-constructors)
+- [Operators and operator overloading](Part4.md#operators-and-operator-overloading)
 
 </details>
 
