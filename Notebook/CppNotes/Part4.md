@@ -203,3 +203,103 @@ int main() {
 } // Objects are properly destroyed!
 
 ```
+
+
+## Copying and Copy Constructors
+
+Copying takes time and we do want to avoid that as much as possible as it wastes performance.
+
+Example, avoiding using modern C++ to show how this works.
+
+```cpp
+#include <string>
+class String{
+private:
+    char* m_Buffer;
+    unsigned int m_Size;
+public:
+    String(conts char* string){
+        m_Size = strlen(string);
+        m_Buffer = new char[m_Size+1];
+        memcpy(m_Buffer,string, m_Size);    //strcpy includes the null termination character, so no need to do the next
+        m_Buffer[m_Size] = 0;
+    }
+    ~String(){
+        delete[] m_Buffer;
+    }
+
+    char& operator[](unsigned int index){   //this allows to address specific char in the string
+        return m_Buffer[index];
+    }
+
+    friend std::ostream& operator<<(std::ostream& stream, const String& string);    //without this i could not directly call "string.m_Buffer" on the under function.
+};
+//use overload operator to make this printable
+std::ostream& operator<<(std::ostream& stream, const String& string){
+    stream << string.m_Buffer;
+    return stream;
+}
+int main(){
+    String string = "Cherno";
+    std::cout << string << std::endl;
+
+    String second = string;
+    std::cout << second << std::endl;
+
+    //Doing this without a Copy constructor, the compiler is by default copying the same pointer and memory address, so when we get out of scope it calls the delete 2 times, but on the second it will crash as it already deleted! Also, a change on either affects both!
+}
+```
+To fix the previous issue we need a deep copy. For this you need a copy constructor:
+```cpp
+#include <string>
+class String{
+private:
+    char* m_Buffer;
+    unsigned int m_Size;
+public:
+    String(conts char* string){
+        m_Size = strlen(string);
+        m_Buffer = new char[m_Size+1];
+        memcpy(m_Buffer,string, m_Size);   
+        m_Buffer[m_Size] = 0;
+    }
+
+    String(const String& other) : m_Size(other.m_Size){
+        m_Buffer = new char[m_Size+1];
+        memcpy(m_Buffer, other.m_Buffer, m_Size+1); //no need to add null as it is a String so it will already have that
+    }
+
+    //If you dont want a copy, do:
+    //String(const String& other) = delete; // and String second = string; will no longer work
+
+    ~String(){
+        delete[] m_Buffer;
+    }
+    char& operator[](unsigned int index){   /
+        return m_Buffer[index];
+    }
+    friend std::ostream& operator<<(std::ostream& stream, const String& string);   
+};
+std::ostream& operator<<(std::ostream& stream, const String& string){
+    stream << string.m_Buffer;
+    return stream;
+}
+
+void PrintString(String string){    //This will make a copy
+    std::cout << string << std::endl;
+}
+
+void PrintStringR(const String& string){    //This will not make a copy but directly access the content: passing by reference. Use const to promise no change, and also not passing temporary l values.
+    std::cout << string << std::endl;
+}
+
+int main(){
+    String string = "Cherno";
+    std::cout << string << std::endl;
+
+    String second = string;
+    std::cout << second << std::endl;
+}
+```
+
+Conclusion: in general, pass objects as const reference.
