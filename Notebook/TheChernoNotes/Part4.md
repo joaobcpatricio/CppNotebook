@@ -116,7 +116,7 @@ Under the previous example, if we debug we will see that the delete from *shared
 
 ### Weak Pointer
 
-When assigning a shared pointer to another, this gets increased. But when assigning a shared pointer to a weak pointer, it does not! This is great if you do not want to take ownership of the entity. It prevents cycling references.
+When assigning a shared pointer to another, this gets increased. But when assigning a shared pointer to a weak pointer, it does not! This is great if you do not want to take ownership of the entity. It prevents circular references.
 
 Example:
 ```cpp
@@ -142,4 +142,64 @@ int main(){
         //By here shared_ptr entity will be destroyed.
     }
 }
+```
+
+Example where a share pointer can create circular dependency and weak solves it:
+```cpp
+#include <memory>
+#include <iostream>
+
+class B;  // Forward declaration
+
+class A {
+public:
+    std::shared_ptr<B> b_ptr;
+    ~A() { std::cout << "A Destroyed\n"; }
+};
+
+class B {
+public:
+    std::shared_ptr<A> a_ptr;
+    ~B() { std::cout << "B Destroyed\n"; }
+};
+
+int main() {
+    std::shared_ptr<A> a = std::make_shared<A>();
+    std::shared_ptr<B> b = std::make_shared<B>();
+
+    a->b_ptr = b;
+    b->a_ptr = a; // Circular reference
+
+    return 0;
+} // Objects never get deleted -> Memory leak!
+
+```
+```cpp
+#include <memory>
+#include <iostream>
+
+class B;  // Forward declaration
+
+class A {
+public:
+    std::weak_ptr<B> b_ptr; // Use weak_ptr to break the cycle
+    ~A() { std::cout << "A Destroyed\n"; }
+};
+
+class B {
+public:
+    std::shared_ptr<A> a_ptr;
+    ~B() { std::cout << "B Destroyed\n"; }
+};
+
+int main() {
+    std::shared_ptr<A> a = std::make_shared<A>();
+    std::shared_ptr<B> b = std::make_shared<B>();
+
+    a->b_ptr = b; // weak_ptr now
+    b->a_ptr = a; // shared_ptr
+
+    return 0;
+} // Objects are properly destroyed!
+
 ```
