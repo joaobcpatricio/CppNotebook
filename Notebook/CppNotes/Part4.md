@@ -459,3 +459,65 @@ int main(){
 
 ## Local Static
 
+Static in a local scope.
+
+A local static variable allows us to have a variable that basically lives our entire program, however its scope is constrained. 
+
+```cpp
+
+void Function(){
+    static int i = 0;
+    i++;
+    std::cout << i << std::endl;
+}
+
+void FunctionS(){
+    static int i = 0;   //same behavior if it was declared outside the function, but this limits the scope access to here.
+    i++;
+    std::cout << i << std::endl;
+}
+int main(){
+    Function(); //1
+    Function(); //1
+    Function(); //1
+    Function(); //1
+    Function(); //1
+
+    FunctionS(); //1
+    FunctionS(); //2
+    FunctionS(); //3
+    FunctionS(); //4
+    FunctionS(); //5
+}
+```
+
+Example for a singleton class
+
+```cpp
+class Singleton{
+private:
+    static Singleton* s_Instance;
+public:
+    static Singleton& Get(){ return *s_Instance;}
+    void Hello(){}
+};
+Singleton* Singleton::s_Instance = nullptr;
+int main(){
+    Singleton::Get().Hello();
+}
+```
+Another way is to do:
+
+```cpp
+class Singleton{
+public:
+    static Singleton& Get(){
+        static Singleton instance;  //the static here keeps it alive and no need to have it elsewhere
+        return instance;
+    }
+    void Hello(){}
+};
+int main(){
+    Singleton::Get().Hello();
+}
+```
