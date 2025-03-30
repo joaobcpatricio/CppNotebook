@@ -41,6 +41,8 @@ Out of order:
 - [Copying and Copy Constructors](Part4.md#copying-and-copy-constructors)
 - [Operators and operator overloading](Part4.md#operators-and-operator-overloading)
 - [Local Static](Part4.md#local-static)
+- [Static](Part4.md#static)
+- [How to deal with multiple return values](Part4.md#how-to-deal-with-multiple-return-values)
 
 </details>
 

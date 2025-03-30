@@ -581,6 +581,64 @@ void callHiddenFunction(){
 extern void callHiddenFunction();
 int main(){
     callHiddenFunction();   //Works
-    //hiddenFunction(); //Does not work
+    //hiddenFunction();     //Does not work
 }
 ```
+
+
+## How to deal with multiple return values
+
+There are several ways to achieve it, being some:
+- The probably best is through a struct.
+- Another is passing the parameters by reference, and then change them under the function. Similar by pointers.
+- Return,for example, an array or vector;
+- Tuple - does not care about the variable types and can return multiple values.
+
+| **Aspect**             | **Pros ✅** | **Cons ❌** |
+|------------------------|------------|------------|
+| **Multiple Return Values** | Can return multiple values of different types from a function. | Values have no explicit names, making it unclear what each represents. |
+| **Structured Bindings (C++17+)** | Enables easy unpacking with `auto [a, b] = tuple;`, improving readability. | Requires `std::get<N>(tuple)`, which is less readable and error-prone. |
+| **Generic & Type-Safe** | Works with any data type while maintaining type safety at compile time. | Adding/removing elements requires modifying all `std::get<N>` calls, making maintenance harder. |
+
+---
+
+```cpp
+#include <iostream>
+#include <tuple>
+
+std::tuple<int, double, std::string> getData() {
+    return {42, 3.14, "Hello"};
+}
+int main() {
+    auto [num, pi, text] = getData();  // Structured binding (C++17+)    
+    std::cout << "Num: " << num << ", Pi: " << pi << ", Text: " << text << std::endl;
+    //Num: 42, Pi: 3.14, Text: Hello
+}
+```
+
+
+- Pair - more readable but limited to two values.
+
+
+| **Aspect**             | **Pros ✅** | **Cons ❌** |
+|------------------------|------------|------------|
+| **Simple & Lightweight** | Easy to use for returning two values. | Limited to only two values, not scalable. |
+| **Readable with `first` & `second`** | More readable than `std::tuple` due to named fields. | `first` and `second` may not be meaningful names, reducing clarity. |
+| **Efficient & Type-Safe** | No extra overhead, works well with STL containers. | Less flexible than a custom `struct` for complex data. |
+
+```cpp
+#include <iostream>
+#include <utility>  // For std::pair
+
+std::pair<int, std::string> getUser() {
+    return {42, "Alice"};
+}
+
+int main() {
+    std::pair<int, std::string> user = getUser();
+    std::cout << "ID: " << user.first << ", Name: " << user.second << std::endl;
+    //ID: 42, Name: Alice
+}
+```
+
+
