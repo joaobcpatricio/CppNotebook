@@ -1,4 +1,4 @@
-# Table of Contents / Inhaltsverzeichnis
+# Table of Contents 
 <details open>
   <summary>English Version</summary>
 
@@ -41,19 +41,4 @@ Out of order:
 
 </details>
 
-<details>
-  <summary>Deutsche Version (German Version)</summary>
-
-- [Einführung](Part1_de.md#Einführung)
-- [Compiler](Part1_de.md#compiler)
-- [Linker](Part1_de.md#linker)
-- [Variablen](Part1_de.md#variablen)
-- [Funktionen](Part1_de.md#funktionen)
-- [Header-Datein](Part1_de.md#header-datein)
-- [Debuggen](Part1_de.md#debuggen)
-- [Bedingungen und Verzweigungen](Part1_de.md#bedingungen-und-verzweigungen)
-- [Loops (Schleifen)](Part1_de.md#loops)
-- [Kontrollfluss](Part1_de.md#kontrollfluss)
-- [Zeiger (Pointers)](Part1_de.md#pointers)
-</details>
 
