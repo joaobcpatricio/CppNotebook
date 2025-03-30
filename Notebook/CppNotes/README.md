@@ -40,6 +40,7 @@ Out of order:
 - [Smart Pointers](Part4.md#smart-pointers)
 - [Copying and Copy Constructors](Part4.md#copying-and-copy-constructors)
 - [Operators and operator overloading](Part4.md#operators-and-operator-overloading)
+- [Local Static](Part4.md#local-static)
 
 </details>
 

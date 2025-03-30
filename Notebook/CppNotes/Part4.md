@@ -454,3 +454,8 @@ int main(){
         ...
     }
 }
+```
+
+
+## Local Static
+
