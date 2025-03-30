@@ -129,3 +129,95 @@ Both are not allowed.
 * **Multiplexed Bus** - reads and writes in memory.
 * **De-multiplexed Bus** - two wires into the same Bus, one has the address and other the data.
 * **Input/output (I/O) Bus** - is a communication pathway that allows multiple devices to share the same input and output signals for data transfer between the processor and peripherals.
+
+
+### Scheduling Algorithms
+
+| Algorithm | Pros | Cons |
+|--|--|--|
+| First-come, first-served (FCFS) |Simple and easy to implement. |Can cause long waiting times (convoy effect).|
+| Shortest Job Nect (SJN) | Minimizes average waiting time. | Requires knowledge fo processes execution time, can cause starvation.|
+|Round Robin (RR) |Ensures fairness, good for time-sharing systems. |High context-switching overhead if time quantum is too small.|
+
+
+### Criteria for MCU selection?
+* Power consuption
+* Processing power
+* Peripherals
+* Memory
+* Connectivity
+* Cost
+* Development ecosystem
+* etc.
+
+
+### MCU power saving methods
+Low power mode, clock scaling, peripheral gating, dynamic voltage scaling, interrupts instead of polling, etc.
+
+
+### MCU block diagram
+
+Example:
+```mermaid
+    graph TD;
+        DS[Digit Sensor]<-->I2C[I2C Controller]
+        subgraph MCU
+            I2C<-->CPU
+            CPU<-->SPI            
+            CPU<-->IO[General purpose I/O interface]
+            IO<-->ADC            
+        end
+        SPI<-->RT[Radio Transceiver]
+        ADC<-->AS[Analog Sensor]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### MPU vs MMU?
+* **MPU** (Memory Protection Unit) → Enforces memory protection, but does not support virtual memory. Used in embedded systems.
+* **MMU** (Memory Management Unit) → Handles virtual memory translation and memory protection. Used in OS-based systems.
+
+
+
+
+### What happens after **power up**, before entering main?
+The **start up code** runs, with reset vector execution, stack and heap setup, variable initializations, construct calls, etc..
+
+
+
+
+### Program to transfer bytes from UART to ethernet (UDP) and blink a led, using some APIs?
+* Use an interrupt-driven UART receive function;
+* Forward received data to a UDP send function;
+* Use a timer interrupt to blink the led periodically.
+
+*Note*: **FTDI** => USB to serial (e.g. UART)
+
+
+
+### What API would you create for working with a DMA controller?
+
+* **DMA_Init()** - init specific settings;
+* **DMA_SetDirection()** & **DMA_SetTransferSize()** - also configure source/destination addresses
+* **DMA_Start()** & **DMA_STOP()** 
+* **DMA_EnableInterrupt()** & **DMA_DisableInterrupt()**
+* **DMA_IsTransferComplete()** & **DMA_ClearFlags()** - clear error flags
+* **DMA_AlocateBuffer()** & **DMA_FreeBuffer()**
+
+This API abstracts DMA configuration, control, and monitoring for easier use in embedded systems.
+
+
+
