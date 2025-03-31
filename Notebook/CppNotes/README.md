@@ -44,6 +44,11 @@ Out of order:
 - [Static](Part4.md#static)
 - [How to deal with multiple return values](Part4.md#how-to-deal-with-multiple-return-values)
 - [Binary and Bitwise Operators](Part4.md#binary-and-bitwise-operators)
+- [Threads](Part4.md#threads)
+- [Timing](Part4.md#timing)
+- [Sorting](Part4.md#sorting)
+- [Function Pointers](Part4.md#function-pointers)
+- [Lambdas](Part4.md#lambdas)
 
 </details>
 

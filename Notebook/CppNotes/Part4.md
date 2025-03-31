@@ -764,3 +764,258 @@ int main(){
     Function(); //122.114ms
 }
 ```
+
+
+## Sorting
+
+We can write our own algorithm, or just use the standard library.
+Tip: consult cppreference for more information on `std::sort`.
+
+Example:
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main(){
+    std::vector<int> values = {3, 5, 1, 4, 2};
+    std::sort(values.begin(), values.end());
+    for(int value : values){
+        std::cout << value << std::endl;
+    }   //1 2 3 4 5
+}
+```
+
+Another example:
+Example:
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
+
+int main(){
+    std::vector<int> values = {3, 5, 1, 4, 2};
+    std::sort(values.begin(), values.end(), std::greater<int>());   //greater will go big to low
+    for(int value : values){
+        std::cout << value << std::endl;
+    }   //5 4 3 2 1
+}
+```
+
+Example using a lambda:
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
+
+int main(){
+    std::vector<int> values = {3, 5, 1, 4, 2};
+    std::sort(values.begin(), values.end(), [](int a, int b) //if we return true, it uses a, else, b
+    {
+        return a<b;
+    }]);   
+    for(int value : values){
+        std::cout << value << std::endl;
+    }   //1 2 3 4 5
+}
+```
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
+
+int main(){
+    std::vector<int> values = {3, 5, 1, 4, 2};
+    std::sort(values.begin(), values.end(), [](int a, int b) //if we return true, it uses a, else, b
+    {
+        return a>b;
+    }]);   
+    for(int value : values){
+        std::cout << value << std::endl;
+    }   //5 4 3 2 1
+}
+```
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
+
+int main(){
+    std::vector<int> values = {3, 5, 1, 4, 2};
+    std::sort(values.begin(), values.end(), [](int a, int b) //if we return true, it uses a, else, b
+    {
+        if( a == 1 ){
+            return false;
+        }
+        if( b == 1){
+            return true;
+        }
+        return a><b;
+    }]);   
+    for(int value : values){
+        std::cout << value << std::endl;
+    }   //2 3 4 5 1
+}
+```
+
+
+## Function Pointers
+
+**Raw function pointers** are a way to assign a function to a variable.
+
+```cpp
+#include <iostream>
+
+void HelloWorld(){
+    std::cout "Hello World!" << std::endl;
+}
+int main(){
+    void(*function)();
+    function = HelloWorld; //remove the () and we get the memory address of that function
+
+    function(); //This is one then calls it
+}
+```
+Here using auto makes it less confusing.
+```cpp
+#include <iostream>
+
+void HelloWorld(){
+    std::cout "Hello World!" << std::endl;
+}
+int main(){
+    auto function = HelloWorld; //remove the () and we get the memory address of that function
+
+    function(); //This is one then calls it
+}
+```
+Another good practice for this case is use a *typedef*:
+```cpp
+#include <iostream>
+
+void HelloWorld(){
+    std::cout "Hello World!" << std::endl;
+}
+int main(){
+    typedef void(*HelloWorldFunction)();
+    HelloWorldFunction cherno = HelloWorld; 
+    cherno(); 
+}
+```
+Now with parameters:
+```cpp
+#include <iostream>
+
+void HelloWorld(int a){
+    std::cout "Hello World! Value: " << a << std::endl;
+}
+int main(){
+    typedef void(*HelloWorldFunction)(int);
+    HelloWorldFunction cherno = HelloWorld; 
+    cherno(8); 
+}
+```
+
+Useful example:
+```cpp
+#include <iostream>
+#include <vector>
+
+void PrintValue(itn value){
+    std::cout << value << std::endl;
+}
+void ForEach(const std::vector<int>& values, void(*func)(int)){
+    for ( int value : values){
+        func(value);
+    }
+}
+int main(){
+    std::vector<int> values = {1, 5, 4, 2, 3};
+    ForEach(values, PrintValue);    //1 5 4 2 3
+}
+```
+Way to do this better using a lambda:
+```cpp
+#include <iostream>
+#include <vector>
+
+
+void ForEach(const std::vector<int>& values, void(*func)(int)){
+    for ( int value : values){
+        func(value);
+    }
+}
+int main(){
+    std::vector<int> values = {1, 5, 4, 2, 3};
+    ForEach(values, [](int value){
+        std::cout << value << std::endl;
+    });    //1 5 4 2 3
+}
+```
+
+
+
+## Lambdas
+
+Is a way to create a function without actually having to physically create it, for example, when we want to treat a function more like a variable.
+
+In short, whenever we have a function pointer we can use a lambda (see *function pointer* section).
+
+```cpp
+#include <iostream>
+#include <vector>
+
+
+void ForEach(const std::vector<int>& values, void(*func)(int)){
+    for ( int value : values){
+        func(value);    //this calls the lambda we passed
+    }
+}
+int main(){
+    std::vector<int> values = {1, 5, 4, 2, 3};
+    ForEach(values, [](int value){
+        std::cout << value << std::endl;
+    });    //1 5 4 2 3
+}
+```
+Evolving the example:
+```cpp
+#include <iostream>
+#include <vector>
+
+
+void ForEach(const std::vector<int>& values, void(*func)(int)){
+    for ( int value : values){
+        func(value);    //this calls the lambda we passed
+    }
+}
+int main(){
+    std::vector<int> values = {1, 5, 4, 2, 3};
+    auto lambda = [](int value){std::cout << value << std::endl;}; 
+    ForEach(values, lambda);    //1 5 4 2 3
+}
+```
+`[]` - also consult [cppreference](https://en.cppreference.com/w/cpp/language/lambda), capturing allows to pass outside values.
+```cpp
+#include <iostream>
+#include <vector>
+#include <functional>
+
+void ForEach(const std::vector<int>& values, std::function<void(int)>& func){ //For this instead of a raw function pointer we need to use the std
+    for ( int value : values){
+        func(value);    //this calls the lambda we passed
+    }
+}
+int main(){
+    std::vector<int> values = {1, 5, 4, 2, 3};
+    int a = 5;
+    auto lambda = [&a](int value){std::cout << value << a << std::endl;}; //if we jus use & or = i takes all. For this instead of a raw function pointer we need to use the std
+    ForEach(values, lambda);    //1 5 4 2 3
+}
+```
