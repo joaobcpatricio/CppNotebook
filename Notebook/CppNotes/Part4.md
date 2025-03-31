@@ -670,3 +670,97 @@ b >> 1 = 2; //0010                  //IT HALVES /2^n
 For a signed type, the behavior would be more tricky.
 
 No need to force using bitshifting for multiplication or division, as it is not so readable and the compiler will already do this for us.
+
+
+
+## Threads
+
+Example:
+```cpp
+#include <iostream>
+#include <thread>
+
+void DoWork(){
+
+}
+int main(){
+    std::thread worker(DoWork); //We are passing a pointer to the method, it runs it
+
+    worker.join();  //will wait on the current thread to finish.
+}
+```
+
+Example where we want to keep printing until we press the Enter key.
+```cpp
+#include <iostream>
+#include <thread>
+
+static bool s_Finished = false;
+void DoWork(){
+    using namespace std::literals::chrono_literals;
+    std::cout << "Started thread id=" << std::this_thread::get_id() << std::endl;
+    while(!s_Finished){
+        std::cout << "Working..\n";
+        std::this_thread::sleep_for(1s);    //to prevent 100% Thread usage for no need
+    }
+}
+int main(){
+    std::cout << "Started thread id=" << std::this_thread::get_id() << std::endl;
+    std::thread worker(DoWork); 
+    std::cint.get();    //while we dont press the other is ongoing as the while is true
+    s_Finished = true;  //while of the other thread will stop
+    worker.join();  
+    std::cout << "Finished" << std::endl;
+}
+```
+
+
+## Timing
+
+Using chrono library, a standard, measure how much time it passes between code.
+
+Useful, for example, for benchmarking.
+
+Example:
+```cpp
+#include <iostream>
+#include <chrono>
+#include <thread>
+int main(){
+    using namespace std::literals::chrono_literals;
+
+    auto start = std::chrono::high_resolution_clock::now(); //get current time
+    std::this_thread::sleap_for(1s);    //1s comes from chrono literals
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float> duration = end-start;
+    std::cout << duration.count() << "s"<< std::endl;
+}
+```
+A better way:
+```cpp
+#include <iostream>
+#include <chrono>
+#include <thread>
+struct Timer{
+    std::chrono::time_point<std::chrono::steady_clock> start, end;
+    std::chrono::duration<float> duration;
+    Timer(){
+        start = std::chrono::high_resolution_clock::now();
+    }
+    ~Timer(){
+        end = std::chrono::high_resolution_clock::now();
+        duration = end-start;
+        float ms = duration.count()*1000.0f;
+        std::cout << "Timer took " << ms <<< "ms " << std::endl;
+    }
+}
+void Function(){
+    Timer timer;
+    for(int i=0; i<100; i++){
+        std::cout << "Hello" << std::endl;
+    }
+}
+int main(){
+    Function(); //122.114ms
+}
+```
