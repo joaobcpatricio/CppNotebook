@@ -221,3 +221,18 @@ This API abstracts DMA configuration, control, and monitoring for easier use in 
 
 
 
+### I2C vs SPI vs UART
+
+| Feature |I2C |SPI |UART |
+|-|-|-|-|
+| Pins required | 2 (SDA, SCL) | 4 (MOSI, MISO, SCL, CS) | 2 (TX, RX) |
+| Speed | Slow (100kHz to 1 MHz) | Fast, more than 10-50MHz |Moderate, 1-2Mbps |
+| Full/half-duplex |Half duplex |Full duplex | full duplex |
+| Addressing | Uses device addresses | Select device via chip select | Point-to-point, no addressing |
+| Communication type | Master-slave | Master-slave | Point-to-point |
+| Bus complexity | More complex | Less complex | Moderate |
+| Power consumption | Low |High | Moderate |
+
+* **UART**: both can send data at any time, simple to use. Protocols/data arguments would be on you, since all is single bytes ==> E.g. USB - FTDI, Bluetooth, etc.
+* **SPI**: One device controls when transfers go. E.g. ADC, oled display.
+* **I2C**: Network, all devices can address other devices at any time. Works in packets. Every device needs an address. E.g. sensors (temperature).
