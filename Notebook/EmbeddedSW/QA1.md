@@ -368,3 +368,101 @@ By keeping the comparison using multiplications instead of calculating `sqrt` th
 | **Access Control**    | One thread at a time                       | Multiple threads allowed (up to a set limit) |
 | **Common Use Case**   | Protecting a shared resource from concurrent access | Managing a pool of resources or coordinating threads |
 
+
+### What does it mean for a function to be reentrant? When would you avoid a non-reentrant function?
+
+A reentrant function can be safely interrupted and called again before its previous executions finish, without causing issues.
+
+Avoid non-reentrant functions when using multithreading or handling interrupts, as they may lead to race conditions or data corruption.
+
+
+### How do you calculate the baud rate of a UART connection?
+
+`Baud Rate = Clock Frequency / Divisor`
+
+- Clock Frequency is the frequency of the clock driving the UART (e.g., 16 MHz).
+- Divisor is the value that is set in the UART configuration to achieve the desired baud rate.
+
+Example:
+Baud Rate = 16000000 / 104 ≈ 153846 baud
+
+
+### What are the RTX and CTX pins used for
+
+The RTX (Receiver Transmit) and CTX (Clear Transmit) pins are typically used in serial communication.
+
+* RTX: Often used to indicate the receive data line or signal used by a device to receive information.
+
+* CTX: Typically refers to the clear transmit signal, which is used to manage or clear the state of transmission in certain communication systems.
+
+These pins might vary depending on the specific context or devic
+
+
+
+### For SPI, what are some common ways a master and a slave could fail to communicate (think about how SPI settings could be different)
+
+Some common ways a master and a slave could fail to communicate in SPI due to different settings include:
+
+1. Clock Polarity (CPOL): If the master and slave have different settings for the clock polarity, they may misinterpret the data.
+2. Clock Phase (CPHA): If the phase is mismatched, data may be sampled at the wrong time.
+3. Clock Speed: If the master sends data at a speed too high for the slave to handle, communication will fail.
+4. Data Order (MSB/LSB): If the master and slave are configured to send/receive data in different bit orders (MSB first vs. LSB first), data will be interpreted incorrectly.
+5. Chip Select (CS): If the slave is not properly selected or the CS is held incorrectly, the slave will not respond.
+
+These mismatched settings can cause the devices to fail in syncing or interpreting transmitted data correctly.
+
+
+### For I2C, what happens if you fail to have sufficient pull-ups?
+
+If you fail to have sufficient pull-up resistors on the SDA (data) and SCL (clock) lines in I2C, the signals won't be able to properly return to a high voltage level when not actively driven low. This can cause communication errors, signal corruption, or the bus to become unresponsive, resulting in failed data transmission or complete communication breakdown.
+
+
+### When would you want to use SPI over I2C?
+
+You would use SPI over I2C when you need:
+
+1. Higher data transfer speeds (SPI is typically faster).
+2. Full-duplex communication (SPI allows simultaneous send and receive).
+3. Multiple devices with individual chip select lines, and you need more control over individual devices.
+4. Lower complexity in protocol (SPI has simpler communication rules).
+
+I2C is better for lower-speed, simpler setups with multiple devices sharing the same bus, but SPI is preferred for speed and more precise control.
+
+
+### What is a DMA, and when would you want to use one?
+
+A DMA (Direct Memory Access) is a feature that allows peripherals or memory blocks to transfer data directly to/from memory without involving the CPU, freeing up processing power.
+
+You would want to use DMA when you need high-speed data transfers (e.g., large amounts of data between memory and peripherals) and want to reduce CPU load, allowing the CPU to focus on other tasks while the DMA handles the data transfer.
+
+
+### Knowledge of how a SAR ADC works.
+
+A SAR (Successive Approximation Register) ADC works by approximating an input voltage in discrete steps to convert it into a digital value. Here's how it works briefly:
+
+1. **Initial Guess**: The ADC starts with an initial guess (e.g., half of the reference voltage).
+2. **Comparison**: It compares the input voltage to the guessed value using a comparator.
+3. **Adjust Guess**: Based on the comparison, the SAR adjusts the guess by either increasing or decreasing the value.
+4. **Repeat**: This process is repeated, refining the guess bit by bit, until the input voltage is approximated to a high degree of accuracy (usually 8-16 bits).
+5. **Output**: Once the approximation is complete, the final binary value is output.
+
+The SAR ADC uses a binary search method, which makes it fast and efficient for medium-resolution conversions (typically 8-16 bits).
+
+The binary search method efficiently finds a target in a sorted list by repeatedly dividing the search interval in half.
+
+
+### Electronics
+
+* A **capacitor** stores and releases electrical energy, influencing voltage changes in a circuit.
+* An **inductor** stores energy in a magnetic field and resists changes in current flow.
+
+* Using a **transistor** as an amplifier in its linear range allows it to amplify signals without distortion, where the output is directly proportional to the input (linear).
+
+* Kirchhoff's laws state that the sum of currents entering a junction equals the sum of currents leaving (current law), and the sum of voltages around a closed loop equals zero (voltage law).
+
+* Ampere's Law states that the magnetic field around a closed loop is proportional to the electric current passing through the loop.
+
+* Ohm law: `V=R*I`
+
+* In an inverting op-amp circuit, the input signal is applied to the inverting terminal, with feedback from the output to the inverting input through a resistor, resulting in a 180° phase-shifted output.
+* In a non-inverting op-amp circuit, the input signal is applied to the non-inverting terminal, with feedback from the output to the inverting input, resulting in an amplified output without a phase shift.
