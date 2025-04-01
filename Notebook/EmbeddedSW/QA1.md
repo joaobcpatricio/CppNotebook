@@ -282,3 +282,41 @@ Next iteration `(num>>i)&1 = (5>>1)&1=(0101>>1)&1 = 0010&0001=0;` 0 we dont need
 
 Next iteration `(num>>i)&1 = (5>>2)&1=(0101>>2)&1 = 0001&0001=1;`, so we add the 1 that was on the 3rd position to the left, on the 3rd to the right. Same logic as before, we use *i* to move to that position as it should be mirrored: `result |= 1<<(size-1-2) => 1000|=1<<(4-3) => 1000|=1<<(1) => 1000|=10 =1010`; 
 
+
+### Find if a string is a palindrome. 
+
+A palindrome is a word, phrase, number, or sequence that reads the same forward and backward. E.g. *level*.
+
+E.g. using std library and `s.rbegin()` that reverses that characters.
+```cpp
+#include <iostream>
+#include <algorithm>
+bool isPalindrome(const std::string& s) {
+    return std::equal(s.begin(), s.begin() + s.size() / 2, s.rbegin());
+}
+int main() {
+    std::string str = "racecar";
+    std::cout << (isPalindrome(str) ? "Palindrome" : "Not a Palindrome") << std::endl;
+}
+```
+
+Not using `std::equal`:
+```cpp
+#include <iostream>
+bool isPalindrome(const std::string& s) {
+    int left = 0, right = s.length() - 1;
+
+    while (left < right) {
+        if (s[left] != s[right]) {
+            return false;  // Mismatch found, not a palindrome
+        }
+        left++;
+        right--;
+    }
+    return true;  // No mismatches, it's a palindrome
+}
+int main() {
+    std::string str = "racecar";
+    std::cout << (isPalindrome(str) ? "Palindrome" : "Not a Palindrome") << std::endl;
+}
+```
