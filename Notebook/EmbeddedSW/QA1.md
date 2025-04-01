@@ -320,3 +320,51 @@ int main() {
     std::cout << (isPalindrome(str) ? "Palindrome" : "Not a Palindrome") << std::endl;
 }
 ```
+
+
+### Find if a point is within a given circle of radius R and offset x and y.
+
+If we draw a circle under a x,y plane, we want to know what is *d* for distance between the center of this circle and the point, that is the hypotenuse. We know that `h^2?(x-cx)^2+(y-cy)^2` so `d=sqrt((x-cx)^2+(y-cy)^2)` (if you are facing issues on getting to this, just draw a circle that is not centered on your plane, place a point somewhere and get to the equation of the distance).
+
+Using this:
+```cpp
+#include <iostream>
+#include <cmath>
+bool isPointInCircle(int px, int py, int cx, int cy, int R) {
+    // Calculate the squared distance between the point and the center of the circle
+    int distSquared = (px - cx) * (px - cx) + (py - cy) * (py - cy);
+    // Compare the squared distance with the squared radius
+    return distSquared <= R * R;
+}
+
+int main() {
+    int px = 3, py = 4;  // Point to check
+    int cx = 0, cy = 0;  // Center of the circle
+    int R = 5;           // Radius of the circle
+
+    if (isPointInCircle(px, py, cx, cy, R)) {
+        std::cout << "The point is inside the circle." << std::endl;
+    } else {
+        std::cout << "The point is outside the circle." << std::endl;
+    }
+    return 0;
+}
+```
+
+By keeping the comparison using multiplications instead of calculating `sqrt` that are computationally expensive due to floating point math. Another option could be first make sure that the point was even inside the bounding box of the circle: `cx-R <=x<=cx+R` and `cy-R<=y<=cy+R`.
+
+
+
+### Mutex vs Semaphore
+
+**Mutex** is for exclusive control (one thread at a time), while **Semaphore** can allow multiple threads to access shared resources concurrently up to a set limit.
+
+| Feature              | Mutex                                      | Semaphore                              |
+|----------------------|--------------------------------------------|----------------------------------------|
+| **Purpose**           | Ensures mutual exclusion (one thread at a time) | Controls access to multiple resources |
+| **Ownership**         | Only the thread that locks can unlock it   | No ownership, any thread can signal or wait |
+| **Type**              | Binary (locked/unlocked)                   | Counting (allows multiple threads if value > 1) |
+| **Usage**             | Used for exclusive access to a critical section | Used for signaling and limiting access to resources |
+| **Access Control**    | One thread at a time                       | Multiple threads allowed (up to a set limit) |
+| **Common Use Case**   | Protecting a shared resource from concurrent access | Managing a pool of resources or coordinating threads |
+
