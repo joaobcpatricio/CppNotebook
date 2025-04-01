@@ -236,3 +236,49 @@ This API abstracts DMA configuration, control, and monitoring for easier use in 
 * **UART**: both can send data at any time, simple to use. Protocols/data arguments would be on you, since all is single bytes ==> E.g. USB - FTDI, Bluetooth, etc.
 * **SPI**: One device controls when transfers go. E.g. ADC, oled display.
 * **I2C**: Network, all devices can address other devices at any time. Works in packets. Every device needs an address. E.g. sensors (temperature).
+
+
+
+### Structure packing: How does this differ in 8-bit architecture vs 32 bit? Can you save space by packing structures differently? Think about word alignment (and what a 'word' means in different architectures).
+
+Structure packing differs between 8-bit and 32-bit architectures primarily in default alignment rules and the potential for space savings. 32-bit architectures typically have stricter alignment requirements (e.g., 4-byte alignment for integers), leading to more padding and larger structure sizes if packing isn't used. 8-bit architectures often have less stringent alignment (e.g., 1-byte alignment), so packing provides smaller savings. Packing, achieved via compiler directives or reordering, can always reduce structure size but might impact performance due to unaligned memory access, especially on 32-bit systems. Word size (1 byte vs 4 bytes) directly influences these alignment behaviors.
+
+```cpp
+//Example struct
+struct Example {
+    char a; //8bit = 1byte + maybe 1 byte padding; 32bit = 1 byte + 3 byte padding
+    int b;  //32bit = 4 byte
+    char c; //8bit = 1byte + maybe 1 byte padding; 32bit = 1 byte + 3 byte padding
+};
+
+//8-bit: No packing might be 4/6 bytes, packing likely also 4/6 bytes.
+//32-bit: No packing might be 12 bytes (due to int alignment), packing is 6 bytes.
+```
+
+
+### Reverse a byte (or arbitrary length integer) in a function.
+
+
+To reverse we want that the first bit is the last, so with bit shifting we go over each bit and save it starting from the end. 
+
+```cpp
+#include <iostream>
+#include <cstdint>
+
+uint64_t reverseBits(uint64_t n, int numBits) {
+  uint64_t result = 0;
+  for (int i = 0; i < numBits; ++i) {
+    if ((n >> i) & 1) {
+      result |= (uint64_t)1 << (numBits - 1 - i);
+    }
+  }
+  return result;
+}
+```
+
+E.g. `(num>>i)&1 = (5>>i)&1=(0101>>0)&1 = 0101&0001=1;` so we need to save 1 at the beginning, that is the full size-1: `result |= 1<<(size-1-i)`; 
+
+Next iteration `(num>>i)&1 = (5>>1)&1=(0101>>1)&1 = 0010&0001=0;` 0 we dont need to add as we already initialized result as 0s.
+
+Next iteration `(num>>i)&1 = (5>>2)&1=(0101>>2)&1 = 0001&0001=1;`, so we add the 1 that was on the 3rd position to the left, on the 3rd to the right. Same logic as before, we use *i* to move to that position as it should be mirrored: `result |= 1<<(size-1-2) => 1000|=1<<(4-3) => 1000|=1<<(1) => 1000|=10 =1010`; 
+
