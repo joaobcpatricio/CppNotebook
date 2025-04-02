@@ -466,3 +466,5 @@ The binary search method efficiently finds a target in a sorted list by repeated
 
 * In an inverting op-amp circuit, the input signal is applied to the inverting terminal, with feedback from the output to the inverting input through a resistor, resulting in a 180° phase-shifted output.
 * In a non-inverting op-amp circuit, the input signal is applied to the non-inverting terminal, with feedback from the output to the inverting input, resulting in an amplified output without a phase shift.
+
+
