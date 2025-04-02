@@ -38,7 +38,7 @@ Code called before the execution of main. it creates a platform for an applicati
 ### What is a **Semaphore**?
 A semaphore is a synchronization primitive used to control access to a shared resource among multiple threads or processes. It helps prevent race conditions and ensures proper synchronization.
 
-* **Binary Semaphore** (0,1) => works like a mutex (lock/unlock), allows onl< one thread at a time.
+* **Binary Semaphore** (0,1) => works like a mutex (lock/unlock), allows only one thread at a time.
 * **Counting Semaphore** (>1) => allows a fixed number of threads to access a resource.
 
 Example where only 2 threads can run at the same time:
@@ -65,7 +65,7 @@ int main() {
 
 
 ### When to use **volatile**?
-For variables that can change unexpectedly, preventing the compilöer from optimizing them away.
+For variables that can change unexpectedly, preventing the compiler from optimizing them away.
 
 *E.g.: a variable set=1, that we later do while(variable), the compiler would optimize and remove this, and if changed by an interrupt ISR, it would miss is effect.*
 
@@ -74,7 +74,7 @@ For variables that can change unexpectedly, preventing the compilöer from optim
 
 ### Thread vs Process
 
-A **Process** is a program under execution running in seperate memory spaces, whereas a **thread** is a segment of a process, that shares information with other threads while containing its registers, counters, etc. .
+A **Process** is a program under execution running in separate memory spaces, whereas a **thread** is a segment of a process, that shares information with other threads while containing its registers, counters, etc. .
 
 
 ### Interrupt latency?
@@ -91,7 +91,7 @@ When a function can be interrupted during execution and can be called back safel
 *Using a mutex one can make a function reentrant.*
 
 
-### Loop-construct to ' VS cont up?
+### Loop-countdown to 0 VS countup?
 Countdown to 0, as it is better to compare to 0 as it is more optimized.
 
 
@@ -136,12 +136,12 @@ Both are not allowed.
 | Algorithm | Pros | Cons |
 |--|--|--|
 | First-come, first-served (FCFS) |Simple and easy to implement. |Can cause long waiting times (convoy effect).|
-| Shortest Job Nect (SJN) | Minimizes average waiting time. | Requires knowledge fo processes execution time, can cause starvation.|
+| Shortest Job Next (SJN) | Minimizes average waiting time. | Requires knowledge fo processes execution time, can cause starvation.|
 |Round Robin (RR) |Ensures fairness, good for time-sharing systems. |High context-switching overhead if time quantum is too small.|
 
 
 ### Criteria for MCU selection?
-* Power consuption
+* Power consumption
 * Processing power
 * Peripherals
 * Memory
@@ -215,7 +215,7 @@ The **start up code** runs, with reset vector execution, stack and heap setup, v
 * **DMA_Start()** & **DMA_STOP()** 
 * **DMA_EnableInterrupt()** & **DMA_DisableInterrupt()**
 * **DMA_IsTransferComplete()** & **DMA_ClearFlags()** - clear error flags
-* **DMA_AlocateBuffer()** & **DMA_FreeBuffer()**
+* **DMA_AllocateBuffer()** & **DMA_FreeBuffer()**
 
 This API abstracts DMA configuration, control, and monitoring for easier use in embedded systems.
 
@@ -395,7 +395,7 @@ The RTX (Receiver Transmit) and CTX (Clear Transmit) pins are typically used in 
 
 * CTX: Typically refers to the clear transmit signal, which is used to manage or clear the state of transmission in certain communication systems.
 
-These pins might vary depending on the specific context or devic
+These pins might vary depending on the specific context or device.
 
 
 
