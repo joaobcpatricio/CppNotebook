@@ -33,13 +33,16 @@
 - [Create Instantiate Objects](Part3.md#create-instantiate-objects)
 - [The New keyword](Part3.md#the-new-keyword)
 - [Implicit Conversion and the Explicit keyword](Part3.md#implicit-conversion-and-the-explicit-keyword)
-
-Out of order:
-
+- [Operators and operator overloading](Part4.md#operators-and-operator-overloading)
+- [The "this" keyword](Part5.md#the-this-keyword)
 - [Object Lifetime](Part4.md#object-lifetime)
 - [Smart Pointers](Part4.md#smart-pointers)
 - [Copying and Copy Constructors](Part4.md#copying-and-copy-constructors)
-- [Operators and operator overloading](Part4.md#operators-and-operator-overloading)
+
+
+
+Out of order:
+
 - [Local Static](Part4.md#local-static)
 - [Static](Part4.md#static)
 - [How to deal with multiple return values](Part4.md#how-to-deal-with-multiple-return-values)
