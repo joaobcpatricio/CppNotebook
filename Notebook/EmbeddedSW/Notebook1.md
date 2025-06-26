@@ -63,3 +63,21 @@
 
 
 
+## Notes
+
+### Making Embedded Systems
+
+**Debugging**
+Debuging an embedded system requires a cross-debugger, that allows to communicate with the target processor through a special processor interface, often called  JTAG.
+
+**Resource Constrains**
+Some under consideration include:
+* Memory (RAM)
+* Code space (ROM or flash)
+* Processor cycles or speed
+* Power consumption (which translates into battery life)
+* Processor peripherals
+
+**Core Principles from SW design to increase system flexibility**
+- Modularity - separate the functionality into subsystems and hide the data each subsystem uses.
+- Encapsulation - create interfaces between the subsystems so they do not know much about each other. 
