@@ -167,3 +167,110 @@ main() function.*
 
 
 
+**System Diagrams**
+Four recommended examples:
+1. **Context Diagram**: Overview of the system. High level, focused on the relationships between devices, users, servers, and other entities.
+Example:
+    ```mermaid
+    graph TD
+    %% Context Diagram for Embedded Cockpit Display Unit within Aircraft
+
+    subgraph Aircraft[Aircraft]
+        ECU[Embedded Cockpit Display Unit]
+        Sensor[Aircraft Sensors]
+        Power[Power Supply]
+    end
+
+    Pilot[Pilot]
+    Maintenance[Maintenance Crew]
+
+    Pilot -->|Input Commands| ECU
+    ECU -->|Display Information| Pilot
+
+    Sensor -->|Sensor Data| ECU
+    ECU -->|Status Data| Maintenance
+
+    Power -->|Power| ECU
+    ```
+
+2. **Block Diagram**: is a simple visual representation showing the main modules or components and how they interact. It highlights the system’s structure and data flow without detailed internal logic.
+Example 1:
+    ```mermaid
+    graph LR
+
+    %% Hardware Block Diagram
+    subgraph Hardware[Hardware Block Diagram]
+        FLASH_HW[FLASH]
+        SPI_HW[SPI Bus]
+        CPU_HW[Processor]
+        FLASH_HW --> SPI_HW --> CPU_HW
+    end
+
+    %% Software Block Diagram
+    subgraph Software[SW Arch Block Diagram]
+        FLASH_SW[FLASH Memory]
+        subgraph CPU_SW[Processor]
+        SPI_SW[SPI Driver]
+        end
+        FLASH_SW --> SPI_SW
+    end
+
+    %% Positioning helper (forces side by side)
+    Hardware -.-| | Software
+    ```
+    Example 2:
+    ```mermaid
+    graph TD
+    %% Detailed Software Block Diagram
+
+    %% External Flash with sections
+    subgraph Flash[Flash Memory]
+        FlashMain[Flash]
+        Version[Version]
+        ImageData[Image Data]
+        FontData[Font Data]
+    end
+
+    %% Main Processor with internal modules
+    subgraph Processor[Main Processor]
+        SPI[SPI]
+        FlashDriver[Flash Driver]
+        Images[Images]
+        Text[Text]
+        GeneratedGraphics[Generated Graphics]
+        Rendering[RENDERING]
+        ScreenBuffer[Screen Buffer]
+        ParallelLCD[Parallel LCD Driver]
+        BacklightI[Backlight]    
+        PWM[PWM IO]
+    end
+
+    %% LCD with Backlight
+    subgraph LCD[ LCD ]
+        LCDMain[LCD]
+        Backlight[Backlight]
+    end
+
+    %% Data flow connections
+    Flash -.- Processor
+    SPI -.- FlashDriver
+    FlashDriver -.- Images
+    FlashDriver -.- Text
+    Images -.- Rendering
+    Text -.- Rendering
+    GeneratedGraphics -.- Rendering
+    Rendering -.- ScreenBuffer
+    ScreenBuffer -.- ParallelLCD
+    ParallelLCD -.- LCDMain
+    ParallelLCD -.- BacklightI
+    ParallelLCD -.- PWM
+    BacklightI -.- PWM
+    Backlight -.- LCDMain
+    PWM -.- Backlight
+```
+
+
+
+
+3. **Organigram**:
+4. **Layering diagram**:
