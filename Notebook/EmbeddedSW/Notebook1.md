@@ -267,10 +267,27 @@ Example 1:
     BacklightI -.- PWM
     Backlight -.- LCDMain
     PWM -.- Backlight
-```
+    ```
 
+3. **Organigram**: an organizational chart,shows the structure of a system, illustrating its components and their relationships. Think of the system as a
+hierarchy and this diagram shows the control and dependencies. For example:
 
+  ```mermaid
+  graph TD
+  MAIN[MAIN] --> Display[Display]
+  MAIN --> Sensor[Sensor]
+  MAIN --> Loggins[Loggins]
+  Display --> Rendering[Rendering]
+  Rendering --> Text_and_fonts[Text and fonts]
+  Text_and_fonts --> Flash
+  Rendering --> Images[Images]
+  Rendering --> Generated_graphics[Generated graphics]
+  Rendering --> LCD[LCD]
+  Images --> Flash[Flash]
+  Flash --> SPI[SPI]
+  LCD --> Parallel_interface[Parallel interface]
 
+  ```
 
-3. **Organigram**:
-4. **Layering diagram**:
+4. **Layering diagram**: a
+
