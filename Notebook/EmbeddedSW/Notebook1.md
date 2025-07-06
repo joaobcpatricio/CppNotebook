@@ -71,7 +71,8 @@ ___
 
 **Debugging**
 Debugging an embedded system requires a cross-debugger, that allows to communicate with the target processor through a special processor interface, often called  JTAG.
-<br>![debug1](imgs/dbg1.png)
+ 
+<img src="imgs/dbg1.png" alt="debug1" width="500"/>
 
 **Resource Constrains**
 Some under consideration include:
@@ -85,7 +86,8 @@ Some under consideration include:
 - Modularity - separate the functionality into subsystems and hide the data each subsystem uses.
 - Encapsulation - create interfaces between the subsystems so they do not know much about each other. 
 
-<br>![root of all evil](imgs/evil-DK.png)
+<img src="imgs/evil-DK.png" alt="root of all evil" width="400"/>
+
 
 **Example Interview Question:**
 <br>*Here is a computer with a compiler and an editor. Please implement
@@ -289,5 +291,6 @@ hierarchy and this diagram shows the control and dependencies. For example:
 
   ```
 
-4. **Layering diagram**: a
+4. **Layering diagram**: A layering diagram shows how software modules depend on each other by stacking them visually, with size hinting at complexity and shared usage. For example, in Figure 2‑6, lower-level hardware (like SPI, Flash) supports higher layers (like Rendering), and shared modules grow larger to show added complexity and interconnections.
 
+    <img src="imgs/layeringd.png" alt="Layering Diagram" width="500"/>
