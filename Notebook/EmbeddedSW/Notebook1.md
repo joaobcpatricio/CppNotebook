@@ -294,3 +294,32 @@ hierarchy and this diagram shows the control and dependencies. For example:
 4. **Layering diagram**: A layering diagram shows how software modules depend on each other by stacking them visually, with size hinting at complexity and shared usage. For example, in Figure 2‑6, lower-level hardware (like SPI, Flash) supports higher layers (like Rendering), and shared modules grow larger to show added complexity and interconnections.
 
     <img src="imgs/layeringd.png" alt="Layering Diagram" width="500"/>
+
+**Encapsulation** means designing modules with clear interfaces that hide internal details, reducing tight coupling. Use diagrams to find places where modules can be grouped or dependencies collapsed without losing flexibility. Combine parts that always change together or are always used together, like hardware abstraction layers. Good encapsulation simplifies the system, making the architecture clearer and easier to maintain.
+
+**Design**<br>
+Top-down design is when you think about what you want and then dig into what you need
+to accomplish your goals.
+<br>Bottom-up design is when you consider what you have and build what you can out of that.
+<br>A usual combination of the two: yo-yo design :)
+
+**Driver Interface**<br>
+Generic Unix interface:
+- Open
+- Close
+-Read
+-Write
+-ioctl (I/O control)
+
+If your system or problem doesn’t naturally fit into a POSIX (standard OS) model, don’t force it to — it might add unnecessary complexity. But if your design does align well with POSIX (e.g., using standard file operations, processes, threads), then using this well-known interface can simplify your code, make it more portable, and help others understand and maintain it more easily.
+
+**Adapter Pattern / Wrapper**<br>
+It converts the interface of an object into one that is easier for a
+client (a higher-level module). Often, adapters are written over software
+APIs to hide ugly interfaces or libraries that change.
+
+The layers and the adapters add complexity to the implementation. They may
+also require more memory or add delays to your code. That is a tradeoff. You
+can have simpler architectures with all of the good maintainability, testing,
+portability, and so on for a small price. Unless your system is very resource
+constrained, this is usually a good trade.
