@@ -1,0 +1,3 @@
+[submodule "Notebook/EmbeddedSW/PrivateNotebook"]
+	path = Notebook/EmbeddedSW/PrivateNotebook
+	url = https://github.com/joaobcpatricio/priv-embed-fw-notes.git
